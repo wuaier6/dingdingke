@@ -52,15 +52,21 @@ Route::group(['namespace' => 'Console'],function ($router)
     $router->get('home','HomeController@index')->name('home');
 
     Route::group(['prefix' => 'company','namespace' => 'Company'],function ($router){
-
         $router->get('index','CompanyController@index')->name('company.index');
         $router->get('create','CompanyController@Create')->name('company.create');
         $router->get('edit','CompanyController@Edie')->name('company.edit');
         $router->post('create','CompanyController@DoCreate')->name('company.docreate');
         $router->post('edit','CompanyController@DoEdit')->name('company.docreate');
-
     });
 
+
+    Route::group(['prefix' => 'teacher','namespace' => 'Teacher'],function ($router){
+        $router->get('index','TeacherController@index')->name('teacher.index');
+        $router->get('create','TeacherController@Create')->name('teacher.create');
+        $router->get('edit','TeacherController@Edie')->name('teacher.edit');
+        $router->post('create','TeacherController@DoCreate')->name('teacher.docreate');
+        $router->post('edit','TeacherController@DoEdit')->name('teacher.docreate');
+    });
 });
 
 

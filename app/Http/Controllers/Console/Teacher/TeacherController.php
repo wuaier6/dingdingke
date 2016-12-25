@@ -3,23 +3,37 @@ namespace App\Http\Controllers\Console\Teacher;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Repositories\CompanyRepositoryEloquent;
 use App\Repositories\TeacherRepositoryEloquent;
-
+use App\Repositories\LocationRepositoryEloquent;
+use App\Repositories\TeacherTagRepositoryEloquent;
+use App\Repositories\TeacherSubjectRepositoryEloquent;
 use Validator;
 
 class TeacherController extends Controller
 {
+    protected $company;
     protected $teacher;
+    protected $location;
+
+    protected $teachertag;
+    protected $teachersubject;
 
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * TeacherController constructor.
+     * @param TeacherRepositoryEloquent $teacher
+     * @param LocationRepositoryEloquent $location
+     * @param TeacherTagRepositoryEloquent $teachertag
+     * @param TeacherSubjectRepositoryEloquent $teachersubject
      */
-    public function __construct(TeacherRepositoryEloquent $teacher)
+    public function __construct(CompanyRepositoryEloquent  $company, TeacherRepositoryEloquent $teacher,LocationRepositoryEloquent $location,TeacherTagRepositoryEloquent $teachertag,TeacherSubjectRepositoryEloquent $teachersubject)
     {
+        $this->company=$company;
         $this->teacher=$teacher;
+        $this->location=$location;
+
+        $this->teachertag=$teachertag;
+        $this->teachersubject=$teachersubject;
     }
 
     /**
@@ -46,7 +60,7 @@ class TeacherController extends Controller
     }
 
 
-    public function Edit(Request $request){
+    public function Edi2t(Request $request){
         $company_id=1234123;
         $teacherinfo=$this->teacher->findwhere(['company_id'=>$company_id,'id'=>1])->first();
         if(is_null($teacherinfo)){
@@ -56,7 +70,7 @@ class TeacherController extends Controller
         return view('company.teacher_edit',$data);
     }
 
-    public function DoEdit(Request $request){
+    public function DoEd2it(Request $request){
         $company_id=1234123;
         $id=1;
         $data=$request->all();
@@ -64,5 +78,45 @@ class TeacherController extends Controller
         return $this->return_json_data(1);
     }
 
+
+    public function index(Request $request){
+        $company_id="df1b6ea0-c9ba-11e6-af4d-bd3315b73cb3";
+        $teacherlist=$this->teacher->findwhere(['company_id'=>$company_id,'status'=>1])->all();
+        $data['teacher_list']=$teacherlist;
+        return view('company.teacher_list',$data);
+    }
+
+    public function Create(Request $request){
+        $company_id="df1b6ea0-c9ba-11e6-af4d-bd3315b73cb3";
+        $data['company_id']=$company_id;
+        $data['province']=  $this->location->getProvince();
+        $data['teacher_tag']=$this->teachertag->all();
+        $data['teacher_subject']=$this->teachersubject->all();
+        return view('console.teacher.create',$data);
+    }
+
+    public function DoCreate(Request $request){
+        $data=$request->all();
+        $company_id=$data['company_id'];
+        $company_info=$this->company->findwhere(array("company_id"=>$company_id))->first();
+        if(is_null($company_info)){
+            //已经不存在机构
+            return $this->return_json_error_data(-1);
+        }
+        //图片另存为
+        $data['headpic'] = $request->file('headpic')->store("/".$company_id.'/teacher/headpic/');
+
+        $this->teacher->updateOrCreate(['company_id'=>$company_id,'cell'=> $data['cell']], $data);
+        return $this->return_json_data(1);
+    }
+
+    public function Edit(Request $request){
+        $company_id="df1b6ea0-c9ba-11e6-af4d-bd3315b73cb3";
+        $data['company_id']=$company_id;
+        $data['province']=  $this->location->getProvince();
+        $data['teacher_tag']=$this->teachertag->all();
+        $data['teacher_subject']=$this->teachersubject->all();
+        return view('console.teacher.create',$data);
+    }
 
 }
