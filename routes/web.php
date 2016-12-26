@@ -68,6 +68,14 @@ Route::group(['namespace' => 'Console'],function ($router)
         $router->post('edit','TeacherController@DoEdit')->name('teacher.docreate');
     });
 
+    Route::group(['prefix' => 'classes','namespace' => 'Classes'],function ($router){
+        $router->get('index','ClassesController@index')->name('classes.index');
+        $router->get('create','ClassesController@Create')->name('classes.create');
+        $router->get('edit/','ClassesController@Edit')->name('classes.edit');
+        $router->post('create','ClassesController@DoCreate')->name('classes.docreate');
+        $router->post('edit','ClassesController@DoEdit')->name('classes.docreate');
+    });
+
     Route::group(['prefix' => 'lesson','namespace' => 'Lesson'],function ($router){
         $router->get('index','LessonController@index')->name('lesson.index');
         $router->get('create','LessonController@Create')->name('lesson.create');

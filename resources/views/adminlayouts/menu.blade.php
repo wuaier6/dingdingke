@@ -22,8 +22,8 @@
 	</span>
         </a>
         <ul class="treeview-menu">
-            <li><a href="/lesson/index">班级详细</a></li>
-            <li><a href="/lesson/create">班级创建</a></li>
+            <li><a href="/classes/index">班级详细</a></li>
+            <li><a href="/classes/create">班级创建</a></li>
         </ul>
     </li>
     <li class="treeview">

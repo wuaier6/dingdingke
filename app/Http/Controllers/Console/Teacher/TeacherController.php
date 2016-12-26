@@ -9,7 +9,9 @@ use App\Repositories\LocationRepositoryEloquent;
 use App\Repositories\TeacherTagRepositoryEloquent;
 use App\Repositories\TeacherSubjectRepositoryEloquent;
 use Validator;
-
+use OSS\OssClient;
+use OSS\Core\OssException;
+use log;
 class TeacherController extends Controller
 {
     protected $company;
@@ -63,6 +65,19 @@ class TeacherController extends Controller
         }
         //图片另存为
         $data['headpic'] = $request->file('headpic')->store("/".$company_id.'/teacher/headpic/');
+
+        $accessKeyId = "eawH7D0GV43s2w0A"; ;
+        $accessKeySecret = "mDYyxhuiBfy2evf0qjPmuZctVQeuE2";
+        $endpoint = "omron-test.oss-cn-shanghai.aliyuncs.com";
+        try {
+            $ossClient = new OssClient($accessKeyId, $accessKeySecret, $endpoint);
+            $response= $ossClient->uploadFile('omron-test','omron-test', $data['headpic']);
+        } catch (OssException $e) {
+            print $e->getMessage();
+        }
+      //  log::info($response);
+
+
 
         $this->teacher->updateOrCreate(['company_id'=>$company_id,'cell'=> $data['cell']], $data);
         return $this->return_json_data(1);
