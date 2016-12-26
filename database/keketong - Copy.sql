@@ -71,3 +71,16 @@ CREATE TABLE `k_lesson_tag` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Table structure for k_company_tag
+-- ----------------------------
+DROP TABLE IF EXISTS `k_lesson_room`;
+CREATE TABLE `k_lesson_room` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `company_id` varchar(40) NOT NULL DEFAULT '0' COMMENT '公司id',
+  `name` varchar(64) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
