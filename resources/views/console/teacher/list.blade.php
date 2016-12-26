@@ -35,16 +35,15 @@
 
                         <div class="mailbox-attachment-info">
                             <div>
-                                <a href="#" class="mailbox-attachment-name" style="word-break:break-all;"><i
-                                            class="fa fa-camera"></i>&nbsp;&nbsp;{{$teacher_val->name}}
+                                <a href="/teacher/edit/{{$teacher_val->id}}" class="mailbox-attachment-name" style="word-break:break-all;"><i
+                                            class="fa fa-pencil"></i>&nbsp;&nbsp;{{$teacher_val->name}}
                                 </a>
-                                <i class="fa fa-camera"></i>&nbsp;&nbsp;语文
                             </div>
                             <div>
                                 <i class="fa fa-camera"></i>&nbsp;&nbsp;1992-12-12
                             </div>
                             <div>
-                                <i class="fa fa-camera"></i>&nbsp;&nbsp;{{$teacher_val->cell}}
+                                <i class="fa fa-phone"></i>&nbsp;&nbsp;{{$teacher_val->cell}}
                             </div>
                             {{--<span class="mailbox-attachment-size">--}}
                             {{--<input type="checkbox" class="grid-item" data-id="test"/>--}}
@@ -56,33 +55,7 @@
                         </div>
                     </li>
                     @endforeach
-                    <li>
-                        <span class="mailbox-attachment-icon has-img"><img
-                                    src="http://img.jsqq.net/uploads/allimg/150228/1_150228191103_1.jpg"
-                                    alt="Attachment"></span>
 
-                        <div class="mailbox-attachment-info">
-                            <div>
-                                <a href="#" class="mailbox-attachment-name" style="word-break:break-all;"><i
-                                            class="fa fa-camera"></i>&nbsp;&nbsp;王老师
-                                </a>
-                                <i class="fa fa-camera"></i>&nbsp;&nbsp;语文
-                            </div>
-                            <div>
-                                <i class="fa fa-camera"></i>&nbsp;&nbsp;1992-12-12
-                            </div>
-                            <div>
-                                <i class="fa fa-camera"></i>&nbsp;&nbsp;18967362082
-                            </div>
-                            {{--<span class="mailbox-attachment-size">--}}
-                            {{--<input type="checkbox" class="grid-item" data-id="test"/>--}}
-                            {{--<span class="pull-right">--}}
-                            {{--<a href="" target="_blank" download="custom-filename.jpg"><i--}}
-                            {{--class="fa fa-cloud-download"></i></a>--}}
-                            {{--</span>--}}
-                            {{--</span>--}}
-                        </div>
-                    </li>
                 </ul>
             </div>
 

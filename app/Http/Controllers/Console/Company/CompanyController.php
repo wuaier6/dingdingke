@@ -25,47 +25,6 @@ class CompanyController extends Controller
         $this->location = $location;
     }
 
-    /**
-     * 公司创建
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function CompanyCreateVeiw(Request $request)
-    {
-        $companytag = $this->companytag->all();
-        $data['companytag'] = $companytag;
-        return view('company.company_create',$data);
-    }
-
-    public function businesslicenceupload(Request $request)
-    {
-        $validator = Validator::make($request->all(),["picture" => 'bail|required|file|image']);
-        if ($validator->fails()) {
-            return $this->return_json_error_data(1, $validator->errors()->all());
-        }
-        $path = $request->file('picture')->store('businesslicence');
-        return $this->return_json_data(1, $path);
-    }
-
-    /**
-     * 公司创建
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function CompanyEditVeiw(Request $request)
-    {
-        $company = $this->company->find(["company_id"=>1,"user_id"=>1])->first();
-        if(is_null($company)){
-            return $this->return_json_error_data(-1,"机构不存在");
-        }
-        return view('company.company_create',$data);
-    }
-
-    public function SaveCompany(Request $request)
-    {
-        $data=$request->all();
-        $data['company_id']=1;
-        $this->company->updateOrCreate(['company_id'=>1], $data);
-        return $this->return_json_data(1);
-    }
 
     protected $user_id=1;
 

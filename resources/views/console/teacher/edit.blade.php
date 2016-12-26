@@ -22,16 +22,17 @@
 <!-- Main content -->
 <section class="content">
     <div class="box box-default">
-        <form action="/teacher/create" method="post" accept-charset="UTF-8"  enctype="multipart/form-data"
+        <form action="/teacher/edit" method="post" accept-charset="UTF-8"  enctype="multipart/form-data"
               class="form-horizontal" pjax-container="">
             <input type="hidden" name="company_id" id="company_id" value="{{$company_id}}"/>
+            <input type="hidden" name="teacher_id" id="teacher_id" value="{{$teacher_id}}"/>
             <div class="box-body">
                 <div class="form-group">
                     <label class="col-sm-2 control-label">姓名</label>
                     <div class="col-sm-2">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                            <input type="text" id="name" name="name" value="" class="form-control"
+                            <input type="text" id="name" name="name" value="{{$teacher_info->name}}" class="form-control"
                                    placeholder="teacher_name">
                         </div>
                     </div>
@@ -42,13 +43,18 @@
                         <select class="form-control" id="province_id" name="province_id" data-placeholder="ChooseTags"
                                 tabindex="-1"
                                 aria-hidden="true">
-                            <option class="default" value="0"></option>
+                            @foreach($province as $province_val)
+                                <option value="{{ $province_val->id}}" <?php echo $teacher_info->provice_id==$province_val->id? "selected":"" ?> >{{ $province_val->text}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-sm-2">
                         <select class="form-control" id="city_id" name="city_id" data-placeholder="ChooseTags"   tabindex="-1"
                                 aria-hidden="true">
                             <option class="default" value="0"></option>
+                            @foreach($city as $city_val)
+                                <option value="{{ $city_val->id}}"  <?php echo $teacher_info->city_id==$city_val->id? "selected":"" ?> >{{ $city_val->text}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-sm-2">
@@ -56,6 +62,9 @@
                                 tabindex="-1"
                                 aria-hidden="true">
                             <option class="default" value="0"></option>
+                            @foreach($district as $district_val)
+                                <option value="{{ $district_val->id}}" <?php echo $teacher_info->district_id==$district_val->id? "selected":"" ?>>{{ $district_val->text}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -64,7 +73,7 @@
                     <div class="col-sm-6">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                            <input type="text" id="address" name="address" value="" class="form-control"
+                            <input type="text" id="address" name="address" value="{{$teacher_info->address}}" class="form-control"
                                    placeholder="Input Address">
                         </div>
                     </div>
@@ -74,7 +83,7 @@
                     <div class="col-sm-3">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                            <input type="text" id="id_card" name="id_card" value="" class="form-control"
+                            <input type="text" id="id_card" name="id_card" value="{{$teacher_info->id_card}}" class="form-control"
                                    placeholder="Input">
                         </div>
                     </div>
@@ -82,7 +91,7 @@
                     <div class="col-sm-2">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-                            <input type="text" id="cell" name="cell" value="" class="form-control"
+                            <input type="text" id="cell" name="cell" value="{{$teacher_info->cell}}" class="form-control"
                                    placeholder="Input">
                         </div>
                     </div>
@@ -101,7 +110,7 @@
                         <select class="form-control" id="tags" name="tags"  data-placeholder="ChooseTags" tabindex="-1"
                                 aria-hidden="true">
                             @foreach($teacher_tag as $teacher_tag_val)
-                                <option value="{{$teacher_tag_val->id}}">{{$teacher_tag_val->name}}</option>
+                                <option value="{{$teacher_tag_val->id}}" <?php echo $teacher_info->tags==$teacher_tag_val->id? "selected":"" ?> >{{$teacher_tag_val->name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -110,7 +119,7 @@
                         <select class="form-control" id="subject" name="subject" data-placeholder="ChooseTags" tabindex="-1"
                                 aria-hidden="true">
                             @foreach($teacher_subject as $teacher_subject_val)
-                                <option value="{{$teacher_subject_val->id}}">{{$teacher_subject_val->name}}</option>
+                                <option value="{{$teacher_subject_val->id}}" <?php echo $teacher_info->subject==$teacher_subject_val->id? "selected":"" ?> >{{$teacher_subject_val->name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -153,19 +162,6 @@
         $(document).ready(function () {
             $("#tags").select2();
             $("#subject").select2();
-
-            $("#province_id").select2({
-                placeholder: "请选择啊",
-                ajax: {
-                    url: "/location/list/1/0",
-                    dataType: 'json',
-                    processResults: function (data) {
-                        return {
-                            results: data.data
-                        };
-                    }
-                }
-            });
 
             $("#province_id").change(function(){
                 $.get("/location/list/2/"+ $(this).val(), function (data) {

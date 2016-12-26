@@ -36,54 +36,12 @@ class TeacherController extends Controller
         $this->teachersubject=$teachersubject;
     }
 
-    /**
-     * 教师一览
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function ListView(Request $request)
-    {
-        $company_id=1234123;
-        $teacherlist=$this->teacher->findwhere(['company_id'=>$company_id,'status'=>1])->all();
-        $data['teacher_list']=$teacherlist;
-        return view('company.teacher_list',$data);
-    }
-
-
-    /**
-     * 创建教师
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function CreateView(Request $request)
-    {
-        $company_id=1234123;
-        return view('company.teacher_create');
-    }
-
-
-    public function Edi2t(Request $request){
-        $company_id=1234123;
-        $teacherinfo=$this->teacher->findwhere(['company_id'=>$company_id,'id'=>1])->first();
-        if(is_null($teacherinfo)){
-            return $this->return_json_error_data(-1,"the teacher isn't exist");
-        }
-        $data['teacher_info']=$teacherinfo;
-        return view('company.teacher_edit',$data);
-    }
-
-    public function DoEd2it(Request $request){
-        $company_id=1234123;
-        $id=1;
-        $data=$request->all();
-        $this->teacher->updateOrCreate(['company_id'=>$company_id,'id'=>$id], $data);
-        return $this->return_json_data(1);
-    }
-
-
     public function index(Request $request){
         $company_id="df1b6ea0-c9ba-11e6-af4d-bd3315b73cb3";
         $teacherlist=$this->teacher->findwhere(['company_id'=>$company_id,'status'=>1])->all();
         $data['teacher_list']=$teacherlist;
-        return view('company.teacher_list',$data);
+        $data['company_id']=$company_id;
+        return view('console.teacher.list',$data);
     }
 
     public function Create(Request $request){
@@ -110,13 +68,42 @@ class TeacherController extends Controller
         return $this->return_json_data(1);
     }
 
-    public function Edit(Request $request){
+    public function Edit(Request $request,$teacher_id){
         $company_id="df1b6ea0-c9ba-11e6-af4d-bd3315b73cb3";
-        $data['company_id']=$company_id;
+
+        $teacher_info=$this->teacher->findwhere(array("company_id"=>$company_id,'id'=>$teacher_id))->first();
+        if(is_null($teacher_info)){
+            //已经存在机构
+            return $this->return_json_error_data(-1);
+        }
+        $data['teacher_info']=  $teacher_info;
         $data['province']=  $this->location->getProvince();
+        $data['city']=  $this->location->getCity($teacher_info->province_id);
+        $data['district']=  $this->location->getDistrict($teacher_info->city_id);
         $data['teacher_tag']=$this->teachertag->all();
         $data['teacher_subject']=$this->teachersubject->all();
-        return view('console.teacher.create',$data);
+        $data['company_id']=$company_id;
+        $data['teacher_id']=$teacher_id;
+        return view('console.teacher.edit',$data);
     }
 
+
+    public function DoEdit(Request $request){
+        $data=$request->all();
+
+//        $company_info=$this->company->findwhere(array("user_id"=>$this->user_id))->first();
+//        if(is_null($company_info)){
+//            //已经存在机构
+//            return $this->return_json_error_data(-1);
+//        }
+        $company_id =$data['company_id'];
+        //图片另存为
+        if(isset($data['headpic']) && $data['headpic'] !=''){
+            $data['headpic'] = $request->file('headpic')->store("/".$this->user_id.'/headpic/'.$company_id);
+        }
+
+        $data['company_id']=$company_id;
+        $this->teacher->updateOrCreate(['company_id'=>$company_id,'id'=>$data['teacher_id']], $data);
+        return $this->return_json_data(1);
+    }
 }
