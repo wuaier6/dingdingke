@@ -31,8 +31,7 @@
                     <li>
                         <span class="mailbox-attachment-icon has-img"><img
                                     src="{{$teacher_val->headpic}}"
-                                    alt="Attachment"></span>
-
+                                    alt=""></span>
                         <div class="mailbox-attachment-info">
                             <div>
                                 <a href="/teacher/edit/{{$teacher_val->id}}" class="mailbox-attachment-name" style="word-break:break-all;"><i

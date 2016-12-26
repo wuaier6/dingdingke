@@ -75,6 +75,11 @@ Route::group(['namespace' => 'Console'],function ($router)
         $router->post('create','LessonController@DoCreate')->name('lesson.docreate');
         $router->post('edit','LessonController@DoEdit')->name('lesson.docreate');
     });
+
+    Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router){
+        $router->get('lessontag','LessonTagController@index')->name('staff.lessontag');
+        $router->get('room','LessonRoomController@index')->name('staff.room');
+    });
 });
 
 

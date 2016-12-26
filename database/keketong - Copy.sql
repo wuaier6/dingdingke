@@ -55,7 +55,7 @@ CREATE TABLE `k_teacher` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
 
 -- ----------------------------
@@ -70,7 +70,7 @@ CREATE TABLE `k_lesson_tag` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for k_company_tag
@@ -80,7 +80,9 @@ CREATE TABLE `k_lesson_room` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `company_id` varchar(40) NOT NULL DEFAULT '0' COMMENT '公司id',
   `name` varchar(64) NOT NULL,
+  `limit` tinyint(3) NOT NULL DEFAULT 0 COMMENT '限制人数',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+

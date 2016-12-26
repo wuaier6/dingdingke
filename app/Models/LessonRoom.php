@@ -12,6 +12,6 @@ class LessonRoom extends Model implements Transformable
 
     protected $table = 'k_lesson_room';
 
-    protected $fillable = ['company_id','name'];
+    protected $fillable = ['company_id','name','limit'];
 
 }
