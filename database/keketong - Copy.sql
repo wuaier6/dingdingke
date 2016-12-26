@@ -66,11 +66,14 @@ CREATE TABLE `k_lesson_tag` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `company_id` varchar(40) NOT NULL DEFAULT '0' COMMENT '公司id',
   `name` varchar(64) NOT NULL,
-  `shorter_name` varchar(16) NOT NULL,
+  `type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态 1:必须 0:选修 ',
+  `pid`  int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '上级ID。0:最上级' ,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+
+
 
 -- ----------------------------
 -- Table structure for k_company_tag
@@ -86,3 +89,46 @@ CREATE TABLE `k_lesson_room` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
+
+-- ----------------------------
+-- Table structure for k_company_tag
+-- ----------------------------
+DROP TABLE IF EXISTS `k_class`;
+CREATE TABLE `k_class` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `company_id` varchar(40) NOT NULL DEFAULT '0' COMMENT '公司id',
+  `teacher_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '教师id',
+  `name` varchar(64) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+
+
+-- ----------------------------
+-- Table structure for k_company_tag
+-- ----------------------------
+DROP TABLE IF EXISTS `k_class_lesson`;
+CREATE TABLE `k_class_lesson` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `company_id` varchar(40) NOT NULL DEFAULT '0' COMMENT '公司id',
+  `class_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '班级',
+  `lesson_tag_id`  int(11) unsigned NOT NULL DEFAULT '0' COMMENT '课程',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Table structure for k_company_tag
+-- ----------------------------
+DROP TABLE IF EXISTS `k_class_student`;
+CREATE TABLE `k_class_student` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `company_id` varchar(40) NOT NULL DEFAULT '0' COMMENT '公司id',
+  `class_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '班级',
+  `student_id`  int(11) unsigned NOT NULL DEFAULT '0' COMMENT '学生id',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;

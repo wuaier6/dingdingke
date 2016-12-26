@@ -41,6 +41,36 @@ class LessonController extends Controller
     }
 
 
+    public function index(Request $request){
+        $lesson_list=   $this->lesson->lesson_list();
+        $lesson_format=array();
+        foreach($lesson_list as $lesson_value){
+            $day = date("Y-m-d", $lesson_value->start_time);
+            $lesson_format[$day][]=$lesson_value;
+        }
+
+        $data['lesson_list']=$lesson_format;
+
+        return view('console.lesson.list',$data);
+    }
+
+    public function Create(Request $request){
+        return view('console.lesson.create');
+    }
+
+    public function Edit(Request $request){
+
+    }
+
+    public function DoCreate(Request $request){
+
+    }
+
+    public function DoEdit(Request $request){
+
+    }
+
+
 
 
 }

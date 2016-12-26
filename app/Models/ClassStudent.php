@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
-class LessonTag extends Model implements Transformable
+class ClassStudent extends Model implements Transformable
 {
     use TransformableTrait;
 
-    protected $table = 'k_lesson_tag';
+    protected $table = 'k_class_student';
+    protected $fillable = ['company_id','class_id','student_id'];
 
-    protected $fillable = ['company_id','name','type','pid'];
 }

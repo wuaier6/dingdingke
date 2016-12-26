@@ -4,6 +4,8 @@
 
 @section('style')
         <!-- Theme style -->
+<link rel="stylesheet" href="/packages/admin/AdminLTE/plugins/select2/select2.min.css">
+<link rel="stylesheet" href="/packages/admin/AdminLTE/plugins/iCheck/all.css">
 @endsection
 
 @section('content')
@@ -33,6 +35,14 @@
                                 </a>
                             </div>
                         </div>
+                        <div class="mailbox-attachment-info">
+                            <ul class="list-unstyled">
+                                <li>
+                                    1234
+                                </li>
+                            </ul>
+                        </div>
+
                     </li>
                     <li>
                         <div class="mailbox-attachment-info">
@@ -76,6 +86,16 @@
                 <div class="modal-body">
                     <div class="form-horizontal">
                         <div class="form-group">
+                            <label class="col-sm-2 control-label">所属类别</label>
+
+                            <div class="col-sm-6">
+                                <select class="form-control" id="lessontag_father" name="lessontag_father"
+                                        data-placeholder="ChooseTags" tabindex="-1"
+                                        aria-hidden="true">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-sm-2 control-label">名称</label>
 
                             <div class="col-sm-6">
@@ -84,6 +104,17 @@
                                     <input type="text" id="name" name="name" value="" class="form-control"
                                            placeholder="Lesson Name">
                                 </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">课程类型</label>
+                            <div class="col-sm-6">
+                                <label>
+                                    <input type="radio" name="type" value="1" class="minimal" check/>&nbsp;必修&nbsp;&nbsp;
+                                </label>
+                                <label>
+                                    <input type="radio" name="type" value="0" class="minimal"/>&nbsp;选修&nbsp;&nbsp;
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -101,9 +132,15 @@
 @endsection
 
 @section('script')
+    <script src="/packages/admin/AdminLTE/plugins/select2/select2.full.min.js"></script>
+    <script src="/packages/admin/AdminLTE/plugins/iCheck/icheck.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('#btn_create').click(function(){
+            $("input[name='type']").iCheck({
+                radioClass: 'icheckbox_square-aero',
+            });
+            $('#btn_create').click(function () {
+                $('#lessontag_father').select2();
                 $('#filter-modal').modal();
             })
         });

@@ -23,7 +23,6 @@ class LessonRoomController extends Controller
 
     public function index(){
 
-
     }
 
     public function create(){
