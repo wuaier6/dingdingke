@@ -25,19 +25,20 @@
             <!-- /.box-header -->
             <div class="box-footer">
                 <ul class="mailbox-attachments clearfix">
+                    @foreach($lesson_rooms as $lesson_room_val)
                     <li>
                         <div class="mailbox-attachment-info">
                             <div>
-                                <a href="#" class="mailbox-attachment-name" style="word-break:break-all;"><i
-                                            class="fa fa-pencil"></i>&nbsp;&nbsp;class-room1
+                                <a href="#" name="btn_roomeidt" data-id="{{$lesson_room_val->id}}" class="mailbox-attachment-name" style="word-break:break-all;"><i
+                                            class="fa fa-pencil"></i>&nbsp;&nbsp;{{$lesson_room_val->name}}
                                 </a>
                             </div>
                             <div>
-                              <i class="fa fa-align-center"></i>&nbsp;&nbsp;限制：5人
+                              <i class="fa fa-align-center"></i>&nbsp;&nbsp;限制：{{$lesson_room_val->limit}}人
                             </div>
                         </div>
                     </li>
-
+                    @endforeach
                 </ul>
             </div>
             <div class="box-footer">
@@ -68,7 +69,8 @@
                 </button>
                 <h4 class="modal-title" id="myModalLabel">课程种类追加</h4>
             </div>
-            <form action="/test" method="get" pjax-container>
+            <form action="/staff/room/create" method="post" pjax-container>
+                <input type="hidden" name="room_id" id="room_id" value="0">
                 <div class="modal-body">
                     <div  class="form-horizontal">
                         <div class="form-group">
@@ -108,6 +110,12 @@
     <script>
         $(document).ready(function () {
             $('#btn_create').click(function(){
+                $('#filter-modal').modal();
+            })
+
+            $("a[name='btn_roomeidt']").click(function(){
+                var room_id=$(this).attr('data-id');
+                $('#room_id').val(room_id);
                 $('#filter-modal').modal();
             })
 

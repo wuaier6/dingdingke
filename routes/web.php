@@ -87,6 +87,7 @@ Route::group(['namespace' => 'Console'],function ($router)
     Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router){
         $router->get('lessontag','LessonTagController@index')->name('staff.lessontag');
         $router->get('room','LessonRoomController@index')->name('staff.room');
+        $router->post('room/create','LessonRoomController@Save')->name('staff.room.create');
     });
 });
 

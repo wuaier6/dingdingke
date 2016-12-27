@@ -15,14 +15,23 @@ class LessonTagController extends Controller
      * LessonTagController constructor.
      * @param CompanyRepositoryEloquent $company
      */
-    public function __construct(LessonTagRepositoryEloquent  $lessontag)
+    public function __construct(LessonTagRepositoryEloquent $lessontag)
     {
-        $this->lessontag=$lessontag;
+        $this->lessontag = $lessontag;
     }
 
-    public function index(){
-        return view('console.staff.lessontag');
+    public function index()
+    {
+        $lessontag_list = $this->lessontag->skipPresenter()->findwhere(['status' => 1,'company_id' => $this->company_id])->all();
+        $data['lessontag']=array();
+
+        foreach($lessontag_list as $lessontag_val){
+
+        }
+        return view('console.staff.lessontag',$data);
     }
+
+
 
 
 }

@@ -59,7 +59,7 @@ CREATE TABLE `k_teacher` (
 
 
 -- ----------------------------
--- Table structure for k_company_tag
+-- Table structure for k_lesson_tag
 -- ----------------------------
 DROP TABLE IF EXISTS `k_lesson_tag`;
 CREATE TABLE `k_lesson_tag` (
@@ -68,6 +68,7 @@ CREATE TABLE `k_lesson_tag` (
   `name` varchar(64) NOT NULL,
   `type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态 1:必须 0:选修 ',
   `pid`  int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '上级ID。0:最上级' ,
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态 1:有效 0:无效 ',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)

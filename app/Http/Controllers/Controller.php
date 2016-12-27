@@ -9,8 +9,11 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Common\MessageHelper;
 class Controller extends BaseController
 {
+
+
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    protected $company_id='d52c7720-cc04-11e6-957e-93b8c2689162';
 
     public function return_json_data($code, $data = "")
     {

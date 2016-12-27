@@ -7,6 +7,7 @@
  */
 
 namespace App\Common;
+
 use Request;
 
 class HttpHelper
@@ -16,7 +17,9 @@ class HttpHelper
         return Request::ip();
     }
 
-    public static function getFullUrl(){
+    public static function getFullUrl()
+    {
         return Request::fullUrl();
     }
+
 }

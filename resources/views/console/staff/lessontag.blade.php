@@ -27,11 +27,12 @@
             <!-- /.box-header -->
             <div class="box-footer">
                 <ul class="mailbox-attachments clearfix">
+                    @foreach($lessontag as $lessontag_val)
                     <li>
                         <div class="mailbox-attachment-info">
                             <div>
                                 <a href="#" class="mailbox-attachment-name" style="word-break:break-all;"><i
-                                            class="fa fa-pencil"></i>&nbsp;&nbsp;英语沙龙课
+                                            class="fa fa-pencil"></i>&nbsp;&nbsp;{{$lessontag_val->name}}
                                 </a>
                             </div>
                         </div>
@@ -44,15 +45,7 @@
                         </div>
 
                     </li>
-                    <li>
-                        <div class="mailbox-attachment-info">
-                            <div>
-                                <a href="#" class="mailbox-attachment-name" style="word-break:break-all;"><i
-                                            class="fa fa-pencil"></i>&nbsp;&nbsp;英语沙龙课
-                                </a>
-                            </div>
-                        </div>
-                    </li>
+                    @endforeach
                 </ul>
             </div>
             <div class="box-footer">

@@ -44,7 +44,7 @@
                                 tabindex="-1"
                                 aria-hidden="true">
                             @foreach($province as $province_val)
-                                <option value="{{ $province_val->id}}" <?php echo $teacher_info->provice_id==$province_val->id? "selected":"" ?> >{{ $province_val->text}}</option>
+                                <option value="{{ $province_val->id}}" <?php echo $teacher_info->province_id==$province_val->id? "selected":"" ?> >{{ $province_val->text}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -189,14 +189,15 @@
                 "showRemove" : false, //显示移除按钮
                 "allowedFileExtensions" : ['jpg', 'png','gif'],//接收的文件后缀,
                 "language":"en",
-                "initialPreview": false,
+                "initialPreview": [ //预览图片的设置
+                    "<img src='<?php echo $teacher_info->headpic  ?>' class='file-preview-image' alt='肖像图片' title='肖像图片'>",
+                ],
                 "allowedFileTypes":["image"],
                 "initialCaption":""});
 
-            $("#headpic").on('filecleared', function(event) {
-                $("#picture_action").val(2);
-                $("#picture_id").val("");
-            });
+            $("#headpic").change(function(){
+                $("#headpic_action").val(1);
+            })
 
         });
     </script>

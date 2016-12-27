@@ -11,7 +11,6 @@ use OSS\Core\OssException;
 class ClassesController extends Controller
 {
 
-
     /**
      * Create a new controller instance.
      *
@@ -23,8 +22,6 @@ class ClassesController extends Controller
     }
 
     public function index(Request $request){
-
-
         return view('console.classes.list');
     }
 

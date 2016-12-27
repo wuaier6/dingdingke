@@ -39,16 +39,15 @@ class TeacherController extends Controller
     }
 
     public function index(Request $request){
-        $company_id="df1b6ea0-c9ba-11e6-af4d-bd3315b73cb3";
-        $teacherlist=$this->teacher->findwhere(['company_id'=>$company_id,'status'=>1])->all();
+
+        $teacherlist=$this->teacher->findwhere(['company_id'=>$this->company_id,'status'=>1])->all();
         $data['teacher_list']=$teacherlist;
-        $data['company_id']=$company_id;
+        $data['company_id']=$this->company_id;
         return view('console.teacher.list',$data);
     }
 
     public function Create(Request $request){
-        $company_id="df1b6ea0-c9ba-11e6-af4d-bd3315b73cb3";
-        $data['company_id']=$company_id;
+        $data['company_id']=$this->company_id;
         $data['province']=  $this->location->getProvince();
         $data['teacher_tag']=$this->teachertag->all();
         $data['teacher_subject']=$this->teachersubject->all();
@@ -66,6 +65,7 @@ class TeacherController extends Controller
         //图片另存为
         $data['headpic'] = asset('storage/'.$request->file('headpic')->store("/".$company_id.'/teacher/headpic'));
 
+        //保存oss
 //        $accessKeyId = "eawH7D0GV43s2w0A"; ;
 //        $accessKeySecret = "mDYyxhuiBfy2evf0qjPmuZctVQeuE2";
 //        $endpoint = "omron-test.oss-cn-shanghai.aliyuncs.com";
@@ -81,9 +81,7 @@ class TeacherController extends Controller
     }
 
     public function Edit(Request $request,$teacher_id){
-        $company_id="df1b6ea0-c9ba-11e6-af4d-bd3315b73cb3";
-
-        $teacher_info=$this->teacher->findwhere(array("company_id"=>$company_id,'id'=>$teacher_id))->first();
+        $teacher_info=$this->teacher->findwhere(array("company_id"=>$this->company_id,'id'=>$teacher_id))->first();
         if(is_null($teacher_info)){
             //已经存在机构
             return $this->return_json_error_data(-1);
@@ -94,7 +92,7 @@ class TeacherController extends Controller
         $data['district']=  $this->location->getDistrict($teacher_info->city_id);
         $data['teacher_tag']=$this->teachertag->all();
         $data['teacher_subject']=$this->teachersubject->all();
-        $data['company_id']=$company_id;
+        $data['company_id']=$this->company_id;
         $data['teacher_id']=$teacher_id;
         return view('console.teacher.edit',$data);
     }
@@ -103,15 +101,14 @@ class TeacherController extends Controller
     public function DoEdit(Request $request){
         $data=$request->all();
 
-//        $company_info=$this->company->findwhere(array("user_id"=>$this->user_id))->first();
-//        if(is_null($company_info)){
-//            //已经存在机构
-//            return $this->return_json_error_data(-1);
-//        }
         $company_id =$data['company_id'];
         //图片另存为
-        if(isset($data['headpic']) && $data['headpic'] !=''){
-            $data['headpic'] = $request->file('headpic')->store("/".$this->user_id.'/headpic/'.$company_id);
+        if ($data['headpic_action'] <> 0) {
+            if (isset($data['headpic']) && $data['headpic'] != '') {
+                $data['headpic'] =asset('storage/' . $request->file('headpic')->store("/".$company_id.'/teacher/headpic'));
+            }
+        }else{
+            unset($data['headpic']);
         }
 
         $data['company_id']=$company_id;

@@ -69,7 +69,6 @@ class CompanyController extends Controller
      */
     public function DoCreate(Request $request)
     {
-
         $data = $request->all();
         $company_info = $this->company->findwhere(array("user_id" => $this->user_id))->first();
         if (!is_null($company_info)) {
