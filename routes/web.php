@@ -66,6 +66,8 @@ Route::group(['namespace' => 'Console'],function ($router)
         $router->get('edit/{teacher}','TeacherController@Edit')->name('teacher.edit');
         $router->post('create','TeacherController@DoCreate')->name('teacher.docreate');
         $router->post('edit','TeacherController@DoEdit')->name('teacher.docreate');
+
+        $router->get('qrcode','TeacherController@ScanQrcode')->name('teacher.qrcode');
     });
 
     Route::group(['prefix' => 'classes','namespace' => 'Classes'],function ($router){
@@ -81,52 +83,12 @@ Route::group(['namespace' => 'Console'],function ($router)
         $router->get('create','LessonController@Create')->name('lesson.create');
         $router->get('edit/{lesson_id}','LessonController@Edit')->name('lesson.edit');
         $router->post('create','LessonController@DoCreate')->name('lesson.docreate');
-        $router->post('edit','LessonController@DoEdit')->name('lesson.docreate');
+        $router->post('edit','LessonController@DoEdit')->name('lesson.doedit');
     });
 
     Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router){
         $router->get('lessontag','LessonTagController@index')->name('staff.lessontag');
         $router->get('room','LessonRoomController@index')->name('staff.room');
         $router->post('room/create','LessonRoomController@Save')->name('staff.room.create');
-    });
-});
-
-
-Route::group(['prefix' => 'console','namespace' => 'Console'],function ($router)
-{
-    $router->get('home','HomeController@index')->name('home');
-
-    Route::group(['namespace' => 'Company'],function ($router){
-        $router->get('companyview','CompanyController@CompanyCreateVeiw')->name('company.view');
-
-        $router->post('businesslicenceuploadtotemp','CompanyController@businesslicenceupload')->name('company.businesslicenceupload');
-
-        $router->post('companyview','CompanyController@SaveCompany')->name('company.save');
-    });
-
-    Route::group(['namespace' => 'Lesson'],function ($router){
-        $router->get('lessonview','LessonController@ListView')->name('lesson.listview');
-
-        $router->post('businesslicenceuploadtotemp','LessonController@businesslicenceupload')->name('lesson.businesslicenceupload');
-
-       // $router->post('companyview','LessonController@SaveCompany')->name('lesson.save');
-    });
-
-    Route::group(['namespace' => 'Teacher'],function ($router){
-        $router->get('teacherlist','TeacherController@ListView')->name('teacher.listview');
-
-        $router->get('teacheredit','TeacherController@Edit')->name('teacher.edit');
-        $router->post('teacheredit','TeacherController@DoEdit')->name('teacher.doedit');
-        $router->get('teachercreate','TeacherController@CreateView')->name('teacher.create');
-    });
-
-
-    Route::group(['namespace' => 'Student'],function ($router){
-       //
-        // $router->get('teacherlist','TeacherController@ListView')->name('teacher.listview');
-
-//        $router->get('teacheredit','TeacherController@Edit')->name('teacher.edit');
-//        $router->post('teacheredit','TeacherController@DoEdit')->name('teacher.doedit');
-        $router->get('studentcreate','StudentController@CreateView')->name('student.create');
     });
 });

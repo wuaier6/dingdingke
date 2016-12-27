@@ -12,6 +12,7 @@ use Validator;
 use OSS\OssClient;
 use OSS\Core\OssException;
 use log;
+use Wechat;
 class TeacherController extends Controller
 {
     protected $company;
@@ -112,6 +113,13 @@ class TeacherController extends Controller
         $data['company_id']=$company_id;
         $this->teacher->updateOrCreate(['company_id'=>$company_id,'id'=>$data['teacher_id']], $data);
         return $this->return_json_data(1);
+    }
+
+    public function ScanQrcode(Request $request){
+        $wechat = app('wechat');
+        $qrcode = $wechat->qrcode;
+        $result = $qrcode->temporary(56, 6 * 24 * 3600);
+        return $this->return_json_data(1,$result);
     }
 
 }
