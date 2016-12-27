@@ -12,7 +12,5 @@ class Company extends BaseModel implements Transformable
 
     protected $table = 'k_company';
 
-    protected $fillable = ['company_id','user_id','name','tags','province_id','city_id','district_id','address','business_licence','business_entity','company_type','id_card','status','open'];
-
-
+    protected $fillable = ['company_id','user_id','name','cell','tags','province_id','city_id','district_id','address','business_licence','business_entity','company_type','id_card','status','open'];
 }

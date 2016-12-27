@@ -22,12 +22,21 @@
 <!-- Main content -->
 <section class="content">
     <div class="box box-default">
-        <div class="callout callout-danger lead">
-            <h4>失败!</h4>
-            <p>
-                对不起，你的信息不正确
-            </p>
-        </div>
+        @if($company_info->status==1)
+            <div class="callout  callout-success lead">
+                <h4>审核通过!</h4>
+                <p>
+                    恭喜你审核通过
+                </p>
+            </div>
+        @else
+            <div class="callout  callout-danger lead">
+                <h4>审核失败!</h4>
+                <p>
+                    对不起，请重新提交审核信息。{{$company_info->reply_msg}}
+                </p>
+            </div>
+        @endif
         <form action="/company/edit"  id="form_create_company"  enctype="multipart/form-data" method="post" accept-charset="UTF-8"
               class="form-horizontal" pjax-container="">
             <input type="hidden"  name="company_id" id="company_id"
@@ -50,7 +59,7 @@
                                 tabindex="-1"
                                 aria-hidden="true">
                             @foreach($province as $province_val)
-                                <option value="{{ $province_val->id}}">{{ $province_val->text}}</option>
+                                <option value="{{ $province_val->id}}" <?php echo $company_info->province_id==$province_val->id? "selected":"" ?> >{{ $province_val->text}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -59,7 +68,7 @@
                                 aria-hidden="true">
                             <option class="default" value="0"></option>
                             @foreach($city as $city_val)
-                                <option value="{{ $city_val->id}}">{{ $city_val->text}}</option>
+                                <option value="{{ $city_val->id}}"  <?php echo $company_info->city_id==$city_val->id? "selected":"" ?> >{{ $city_val->text}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -69,7 +78,7 @@
                                 aria-hidden="true">
                             <option class="default" value="0"></option>
                             @foreach($district as $district_val)
-                                <option value="{{ $district_val->id}}">{{ $district_val->text}}</option>
+                                <option value="{{ $district_val->id}}" <?php echo $company_info->district_id==$district_val->id? "selected":"" ?>>{{ $district_val->text}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -129,12 +138,13 @@
                                 data-placeholder="ChooseTags" tabindex="-1"
                                 aria-hidden="true">
                             @foreach($companytag as $companytag_val)
-                                <option value="{{$companytag_val->id}}" >{{$companytag_val->name}}</option>
+                                <option value="{{$companytag_val->id}}" <?php echo in_array($companytag_val->id,json_decode($company_info->tags))? "selected":"" ?>  >{{$companytag_val->name}}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
             </div>
+            @if($company_info->status!=1)
             <!-- /.box-body -->
             <div class="box-footer">
                 <div class="col-sm-2">
@@ -149,6 +159,7 @@
                 </div>
 
             </div>
+            @endif
             <!-- /.box-footer -->
         </form>
     </div>
@@ -216,16 +227,15 @@
                 "showRemove": false, //显示移除按钮
                 "allowedFileExtensions": ['jpg', 'png', 'gif'],//接收的文件后缀,
                 "initialPreview": [ //预览图片的设置
-                    "<img src='<?php echo "http://localhost:8000/".$company_info->business_licence  ?>' class='file-preview-image' alt='肖像图片' title='肖像图片'>",
+                    "<img src='<?php echo $company_info->business_licence  ?>' class='file-preview-image' alt='肖像图片' title='肖像图片'>",
                 ],
                 "allowedFileTypes": ["image"],
                 "initialCaption": ""
             });
 
-            $("#business_licence").on('filecleared', function (event) {
-                $("#business_licence_action").val(2);
-                $("#business_licence_id").val("");
-            });
+            $("#business_licence").change(function(){
+                $("#business_licence_action").val(1);
+            })
 
             $("#id_card").fileinput({
                 "overwriteInitial": true,
@@ -233,16 +243,14 @@
                 "showRemove": false, //显示移除按钮
                 "allowedFileExtensions": ['jpg', 'png', 'gif'],//接收的文件后缀,
                 "initialPreview": [ //预览图片的设置
-                    "<img src='<?php echo "http://localhost:8000/".$company_info->id_card  ?>' class='file-preview-image' alt='肖像图片' title='肖像图片'>",
+                    "<img src='<?php echo $company_info->id_card  ?>' class='file-preview-image' alt='肖像图片' title='肖像图片'>",
                 ],
                 "allowedFileTypes": ["image"],
                 "initialCaption": ""
             });
-
-            $("#id_card").on('filecleared', function (event) {
-                $("#business_licence_action").val(2);
-                $("#business_licence_id").val("");
-            });
+            $("#id_card").change(function(){
+                $("#id_card_action").val(1);
+            })
 
         });
     </script>

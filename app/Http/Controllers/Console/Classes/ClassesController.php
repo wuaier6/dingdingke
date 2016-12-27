@@ -23,15 +23,7 @@ class ClassesController extends Controller
     }
 
     public function index(Request $request){
-        $accessKeyId = "eawH7D0GV43s2w0A"; ;
-        $accessKeySecret = "mDYyxhuiBfy2evf0qjPmuZctVQeuE2";
-        $endpoint = "omron-test.oss-cn-shanghai.aliyuncs.com";
-        try {
-            $ossClient = new OssClient($accessKeyId, $accessKeySecret, $endpoint);
-            $ossClient->uploadFile('omron-test', 'testafadf', $filePath);
-        } catch (OssException $e) {
-            print $e->getMessage();
-        }
+
 
         return view('console.classes.list');
     }

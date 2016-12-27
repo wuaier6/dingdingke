@@ -43,6 +43,9 @@
                                 tabindex="-1"
                                 aria-hidden="true">
                             <option class="default" value="0"></option>
+                            @foreach($province as $province_val)
+                                <option value="{{ $province_val->id}}">{{ $province_val->text}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-sm-2">
@@ -158,19 +161,6 @@
     <script>
         $(document).ready(function () {
             $("#tags").select2();
-
-            $("#province_id").select2({
-                placeholder: "请选择啊",
-                ajax: {
-                    url: "/location/list/1/0",
-                    dataType: 'json',
-                    processResults: function (data) {
-                        return {
-                            results: data.data
-                        };
-                    }
-                }
-            });
 
             $("#province_id").change(function(){
                 $.get("/location/list/2/"+ $(this).val(), function (data) {

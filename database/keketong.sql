@@ -220,6 +220,7 @@ CREATE TABLE `k_company` (
   `business_licence` varchar(255) NOT NULL DEFAULT '' COMMENT '营业执照',
   `business_entity` varchar(64) NOT NULL DEFAULT '' COMMENT '企业法人',
   `tags` varchar(255) NOT NULL DEFAULT '' COMMENT '机构类型',
+  `cell` char(11) NOT NULL DEFAULT '' COMMENT '手机号',
   `id_card` varchar(255) NOT NULL DEFAULT '' COMMENT '身份证',
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态。1:审核通过 0:待审核 2:审核通不过 ',
   `reply_msg` varchar(255) NOT NULL DEFAULT '' COMMENT '审核内容',
