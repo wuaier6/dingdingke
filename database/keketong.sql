@@ -260,7 +260,7 @@ INSERT INTO `k_company_tag` VALUES ('5', '小学教育');
 DROP TABLE IF EXISTS `k_lesson`;
 CREATE TABLE `k_lesson` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `center_id` varchar(40) NOT NULL DEFAULT '0' COMMENT '中心id',
+  `company_id` varchar(40) NOT NULL DEFAULT '0' COMMENT '中心id',
   `name` varchar(64) NOT NULL DEFAULT '' COMMENT '课程名称',
   `type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0:正常，1:户外',
   `room_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '教室id',

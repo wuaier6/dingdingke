@@ -180,8 +180,8 @@ return [
 
 
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
-        Encore\Admin\Providers\AdminServiceProvider::class
 
+        Overtrue\LaravelWechat\ServiceProvider::class,
     ],
 
     /*
@@ -230,6 +230,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Uuid' => Webpatser\Uuid\Uuid::class,
+        'Wechat' => Overtrue\LaravelWechat\Facade::class,
     ],
 
 ];

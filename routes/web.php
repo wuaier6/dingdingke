@@ -79,7 +79,7 @@ Route::group(['namespace' => 'Console'],function ($router)
     Route::group(['prefix' => 'lesson','namespace' => 'Lesson'],function ($router){
         $router->get('index','LessonController@index')->name('lesson.index');
         $router->get('create','LessonController@Create')->name('lesson.create');
-        $router->get('edit/{teacher}','LessonController@Edit')->name('lesson.edit');
+        $router->get('edit/{lesson_id}','LessonController@Edit')->name('lesson.edit');
         $router->post('create','LessonController@DoCreate')->name('lesson.docreate');
         $router->post('edit','LessonController@DoEdit')->name('lesson.docreate');
     });

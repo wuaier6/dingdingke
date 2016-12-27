@@ -54,73 +54,6 @@
                 @endforeach
                 <?php $i=1;?>
             @endforeach
-            <tr>
-                <td rowspan="2" style="vertical-align: inherit;">monday</td>
-                <td>B&Above</td>
-                <td>19:00-20:00</td>
-                <td>nihaosadfsdfasdfasdfasd</td>
-                <td>王老师</td>
-                <td>av room</td>
-                <td>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-xs btn-info grid-order-up" data-id=""><i class="fa fa-caret-up fa-fw"></i></button>
-                        <button type="button" class="btn btn-xs btn-default grid-order-down" data-id=""><i class="fa fa-caret-down fa-fw"></i></button>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>B&Above</td>
-                <td>19:00-20:00</td>
-                <td>个数几件</td>
-                <td>王老师</td>
-                <td>av room</td>
-                <td>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-xs btn-info grid-order-up" data-id=""><i class="fa fa-caret-up fa-fw"></i></button>
-                        <button type="button" class="btn btn-xs btn-default grid-order-down" data-id=""><i class="fa fa-caret-down fa-fw"></i></button>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td rowspan="3" style="vertical-align: inherit;">tuesday</td>
-                <td>B&Above</td>
-                <td>19:00-20:00</td>
-                <td>nihaosadfsdfasdfasdfasd</td>
-                <td>王老师</td>
-                <td>av room</td>
-                <td>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-xs btn-info grid-order-up" data-id=""><i class="fa fa-caret-up fa-fw"></i></button>
-                        <button type="button" class="btn btn-xs btn-default grid-order-down" data-id=""><i class="fa fa-caret-down fa-fw"></i></button>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>B&Above</td>
-                <td>19:00-20:00</td>
-                <td>个数几件</td>
-                <td>王老师</td>
-                <td>av room</td>
-                <td>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-xs btn-info grid-order-up" data-id=""><i class="fa fa-caret-up fa-fw"></i></button>
-                        <button type="button" class="btn btn-xs btn-default grid-order-down" data-id=""><i class="fa fa-caret-down fa-fw"></i></button>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>B&Above</td>
-                <td>19:00-20:00</td>
-                <td>个数几件</td>
-                <td>王老师</td>
-                <td>av room</td>
-                <td>
-                    <div class="btn-group">
-                        <a class="btn btn-sm btn-danger batch-delete">删除</a>
-
-                    </div>
-                </td>
-            </tr>
             </tbody>
         </table>
     </div>
@@ -131,8 +64,6 @@
 @endsection
 
 @section('script')
-
-
     <script>
         $(document).ready(function () {
 

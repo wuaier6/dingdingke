@@ -4,10 +4,9 @@
 
 @section('style')
         <!-- Theme style -->
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker.css">
 <link rel="stylesheet" href="/packages/admin/AdminLTE/plugins/select2/select2.min.css">
 <link rel="stylesheet" href="/packages/admin/AdminLTE/plugins/iCheck/all.css">
-
-<link rel="stylesheet" href="/packages/admin/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
 
 @endsection
 
@@ -19,11 +18,10 @@
         <small>欢迎使用订课通</small>
     </h1>
 </section>
-
 <!-- Main content -->
 <section class="content">
     <div class="box box-default">
-        <form action="/admin/form" method="post" accept-charset="UTF-8"
+        <form action="/lesson/create" method="post" accept-charset="UTF-8"
               class="form-horizontal" pjax-container="">
             <div class="box-body">
                 <div class="form-group">
@@ -31,7 +29,7 @@
                     <div class="col-sm-6">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                            <input type="text" id="topic" name="topic" value="" class="form-control"
+                            <input type="text" id="name" name="name" value="" class="form-control"
                                    placeholder="Company Name">
                         </div>
                     </div>
@@ -39,22 +37,21 @@
                 <div class="form-group ">
                     <label for="test" class="col-sm-2 control-label">教室</label>
                     <div class="col-sm-2">
-                        <select class="form-control" id="classroom" name="classroom"  data-placeholder="ChooseTags" tabindex="-1"
+                        <select class="form-control" id="room_id" name="room_id"  data-placeholder="ChooseTags" tabindex="-1"
                                 aria-hidden="true">
-                            <option value="key" selected>name1</option>
-                            <option value="key">name2</option>
-                            <option value="key">name3</option>
-                            <option value="key">name4</option>
+                            <option class="default" value="0"></option>
+                            @foreach($lessonroom as $lessonroom_val)
+                                <option value="{{ $lessonroom_val->id}}">{{ $lessonroom_val->name}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <label for="test" class="col-sm-2 control-label">任课老师</label>
                     <div class="col-sm-2">
-                        <select class="form-control" id="class_teacher" name="class_teacher"  data-placeholder="ChooseTags" tabindex="-1"
+                        <select class="form-control" id="teacher_id" name="teacher_id"  data-placeholder="ChooseTags" tabindex="-1"
                                 aria-hidden="true">
-                            <option value="key" selected>name1</option>
-                            <option value="key">name2</option>
-                            <option value="key">name3</option>
-                            <option value="key">name4</option>
+                            @foreach($teacher as $teacher_val)
+                                <option value="{{ $teacher_val->id}}">{{ $teacher_val->name}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -63,20 +60,16 @@
                     <div class="col-sm-2">
                         <select class="form-control" id="tags" name="tags"  data-placeholder="ChooseTags" tabindex="-1"
                                 aria-hidden="true">
-                            <option value="key" selected>name1</option>
-                            <option value="key">name2</option>
-                            <option value="key">name3</option>
-                            <option value="key">name4</option>
+                            <option class="default" value="0"></option>
+                            @foreach($lessontag as $lessontag_val)
+                                <option value="{{ $lessontag_val->id}}">{{ $lessontag_val->name}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <label for="test" class="col-sm-2 control-label">级别</label>
                     <div class="col-sm-2">
                         <select class="form-control" id="level" name="level[]" multiple="multiple"  data-placeholder="ChooseTags" tabindex="-1"
                                 aria-hidden="true">
-                            <option value="key1" selected>name1</option>
-                            <option value="key2">name2</option>
-                            <option value="key3">name3</option>
-                            <option value="key4">name4</option>
                         </select>
                     </div>
                 </div>
@@ -85,7 +78,7 @@
                     <div class="col-sm-2">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                            <input type="text" id="data_day" name="data_day" value="" class="form-control"  />
+                            <input type="text" name="lesson_day" id="lesson_day" class="form-control"  />
                         </div>
                     </div>
                     <div class="col-sm-4">
@@ -138,12 +131,12 @@
 @endsection
 
 @section('script')
+
+
+    <script src="//cdn.bootcss.com/moment.js/2.8.1/moment.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.43/js/bootstrap-datetimepicker.min.js"></script>
     <script src="/packages/admin/AdminLTE/plugins/select2/select2.full.min.js"></script>
     <script src="/packages/admin/AdminLTE/plugins/iCheck/icheck.min.js"></script>
-
-    <script src="/packages/admin/moment/min/moment-with-locales.min.js"></script>
-    <script src="/packages/admin/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-
     <script>
         $(document).ready(function () {
             $("#classroom").select2();
@@ -151,10 +144,9 @@
             $("#class_teacher").select2();
             $("#tags").select2();
             $("#level").select2();
-
-            $('#data_day').datetimepicker({"format":"YYYY-MM-DD"});
-            $('#start').datetimepicker({"format":"HH:mm"});
-            $('#end').datetimepicker({"format":"HH:mm"});
+            $('#lesson_day').datetimepicker({"format":"YYYY-MM-DD","locale":"en"});
+            $('#start').datetimepicker({"format":"HH:00","locale":"en"});
+            $('#end').datetimepicker({"format":"HH:00","locale":"en"});
         });
     </script>
 @endsection

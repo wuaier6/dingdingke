@@ -17,6 +17,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	@yield('style')
 	<link rel="stylesheet" href="/assets/css/adminLte/AdminLTE.min.css">
 	<link rel="stylesheet" href="/assets/css/adminLte/skins/skin-blue.min.css">
+
 			<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -125,6 +126,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- REQUIRED JS SCRIPTS -->
 <script src="/assets/js/admin.js"></script>
 <script src="/packages/admin/jquery-form/jquery.form.min.js"></script>
+
 @yield('script')
 </body>
 </html>

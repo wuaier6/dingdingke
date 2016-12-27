@@ -8,18 +8,27 @@ use App\Repositories\LessonRepositoryEloquent;
 
 use Validator;
 
+use App\Repositories\LessonTagRepositoryEloquent;
+use App\Repositories\LessonRoomRepositoryEloquent;
+use App\Repositories\TeacherRepositoryEloquent;
 class LessonController extends Controller
 {
     protected $lesson;
-
+    protected $lessontag;
+    protected $lessonroom;
+    protected $teacher;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(LessonRepositoryEloquent $lesson)
+    public function __construct(LessonRepositoryEloquent $lesson ,LessonTagRepositoryEloquent $lessontag
+        ,LessonRoomRepositoryEloquent $lessonroom,TeacherRepositoryEloquent $teacher)
     {
         $this->lesson=$lesson;
+        $this->lessontag=$lessontag;
+        $this->lessonroom=$lessonroom;
+        $this->teacher=$teacher;
     }
 
     /**
@@ -55,7 +64,11 @@ class LessonController extends Controller
     }
 
     public function Create(Request $request){
-        return view('console.lesson.create');
+        $company_id=$this->company_id;
+        $data['lessontag']= $this->lessontag->findwhere(["company_id"=>$company_id,"pid"=>0])->all();
+        $data['lessonroom']= $this->lessonroom->findwhere(["company_id"=>$company_id])->all();
+        $data['teacher']=   $this->teacher->findwhere(["company_id"=>$company_id])->all();
+        return view('console.lesson.create',$data);
     }
 
     public function Edit(Request $request){
@@ -63,7 +76,22 @@ class LessonController extends Controller
     }
 
     public function DoCreate(Request $request){
+        $data = $request->all();
 
+        $company_id = $this->company_id;
+
+        $lesson['company_id']= $company_id;
+        $lesson['name']= $data['name'];
+        $lesson['room_id']= $data['room_id'];
+        $lesson['teacher_id']= $data['teacher_id'];
+        $lesson['limit']= $data['limit'];
+        $lesson['tags']= $data['tags'];
+
+        $lesson['start_time']= strtotime($data['lesson_day']." ".$data['start']);
+        $lesson['end_time']= strtotime($data['lesson_day']." ".$data['end']);
+
+        $this->lesson->Create($lesson);
+        return $this->return_json_data(1);
     }
 
     public function DoEdit(Request $request){

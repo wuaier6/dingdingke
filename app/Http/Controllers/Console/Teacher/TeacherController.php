@@ -17,7 +17,6 @@ class TeacherController extends Controller
     protected $company;
     protected $teacher;
     protected $location;
-
     protected $teachertag;
     protected $teachersubject;
 
@@ -97,7 +96,6 @@ class TeacherController extends Controller
         return view('console.teacher.edit',$data);
     }
 
-
     public function DoEdit(Request $request){
         $data=$request->all();
 
@@ -115,4 +113,5 @@ class TeacherController extends Controller
         $this->teacher->updateOrCreate(['company_id'=>$company_id,'id'=>$data['teacher_id']], $data);
         return $this->return_json_data(1);
     }
+
 }
