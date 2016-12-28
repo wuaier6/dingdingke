@@ -12,6 +12,7 @@ class Student extends BaseModel implements Transformable
 
     protected $table = 'k_student';
 
-    protected $fillable = [];
+    protected $fillable = ['company_id','level','grate','name','headpic','province_id','city_id','district_id','address','school_name','teacher_name','teacher_cell','id_card','cell','tags','status'];
 
 }
+

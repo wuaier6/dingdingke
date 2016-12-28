@@ -65,7 +65,7 @@ class TeacherController extends Controller
         //图片另存为
         $data['headpic'] = asset('storage/'.$request->file('headpic')->store("/".$company_id.'/teacher/headpic'));
 
-        //保存oss
+          //保存oss
 //        $accessKeyId = "eawH7D0GV43s2w0A"; ;
 //        $accessKeySecret = "mDYyxhuiBfy2evf0qjPmuZctVQeuE2";
 //        $endpoint = "omron-test.oss-cn-shanghai.aliyuncs.com";

@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' =>  'Asia/Shanghai',
 
     /*
     |--------------------------------------------------------------------------
@@ -178,9 +178,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
-
         Overtrue\LaravelWechat\ServiceProvider::class,
     ],
 

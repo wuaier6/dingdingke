@@ -91,4 +91,17 @@ Route::group(['namespace' => 'Console'],function ($router)
         $router->get('room','LessonRoomController@index')->name('staff.room');
         $router->post('room/create','LessonRoomController@Save')->name('staff.room.create');
     });
+
+    Route::group(['prefix' => 'student','namespace' => 'Student'],function ($router){
+        $router->get('index','StudentController@index')->name('student.index');
+        $router->get('create','StudentController@Create')->name('student.create');
+        $router->get('edit/{student_id}','StudentController@Edit')->name('student.edit');
+        $router->post('create','StudentController@DoCreate')->name('student.docreate');
+        $router->post('edit','StudentController@DoEdit')->name('student.docreate');
+
+        $router->get('info/{student_id}','StudentController@Info')->name('student.info');
+
+        $router->get('qrcode','StudentController@ScanQrcode')->name('student.qrcode');
+    });
+
 });

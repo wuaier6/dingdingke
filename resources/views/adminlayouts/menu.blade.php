@@ -48,7 +48,7 @@
             <li><a href="/teacher/create">教师创建</a></li>
         </ul>
     </li>
-    <li><a href="/console/studentcreate"><i class="fa fa-link"></i> <span>学员管理</span></a></li>
+    <li><a href="/student/index"><i class="fa fa-link"></i> <span>学员管理</span></a></li>
     <li class="treeview">
         <a href="#"><i class="fa fa-link"></i> <span>初始信息管理</span>
 	<span class="pull-right-container">

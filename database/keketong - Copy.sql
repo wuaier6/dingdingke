@@ -133,3 +133,21 @@ CREATE TABLE `k_class_student` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+
+
+
+-- ----------------------------
+-- Table structure for k_company_tag
+-- ----------------------------
+DROP TABLE IF EXISTS `k_sudent_orderlesson`;
+CREATE TABLE `k_sudent_orderlesson` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `company_id` varchar(40) NOT NULL DEFAULT '0' COMMENT '公司id',
+  `student_id`  int(11) unsigned NOT NULL DEFAULT '0' COMMENT '学生id',
+  `lesson_id`  int(11) unsigned NOT NULL DEFAULT '0' COMMENT '课程id',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态 1:已预定 0:无效  2:已完成',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+
