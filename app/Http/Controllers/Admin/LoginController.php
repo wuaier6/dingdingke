@@ -1,10 +1,34 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
+
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Storage;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+
 class LoginController extends Controller
 {
+    /*
+    |--------------------------------------------------------------------------
+    | Login Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles authenticating users for the application and
+    | redirecting them to your home screen. The controller uses a trait
+    | to conveniently provide its functionality to your applications.
+    |
+    */
+
+    use AuthenticatesUsers;
+
+    /**
+     * Where to redirect users after login.
+     *
+     * @var string
+     */
+    protected $redirectTo = '/admin';
+
+    protected $username;
+
 
     /**
      * Create a new controller instance.
@@ -13,74 +37,45 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+        $this->middleware('guest:admin', ['except' => 'logout']);
     }
-
     /**
      * 重写登录视图页面
+     * @author 晚黎
      * @date   2016-09-05T23:06:16+0800
      * @return [type]                   [description]
      */
     public function showLoginForm()
     {
-        return view('company.company_create');
+        return view('admin.auth.login');
     }
-
-    public function form(Request $request){
-        $data=$request->all();
-        print_r($data);
-        die;
-    }
-
-    public function upload(Request $request){
-        $path = Storage::putFile('avatars', $request->file('picture'));
-        //$path = $request->file('picture')->store('businesslicence');
-        return $this->return_json_data(1,$path);
-
-        return json_encode(array("data"=>1));
-        $data=$request->all();
-        print_r($data);
-        die;
-    }
-
-
     /**
-     * 重写登录视图页面
-     * @date   2016-09-05T23:06:16+0800
+     * 自定义认证驱动
+     * @author 晚黎
+     * @date   2016-09-05T23:53:07+0800
      * @return [type]                   [description]
      */
-    public function class_create()
+    protected function guard()
     {
-        return view('company.class_create');
-    }
-
-
-    /**
-     * 重写登录视图页面
-     * @date   2016-09-05T23:06:16+0800
-     * @return [type]                   [description]
-     */
-    public function class_list()
-    {
-        return view('company.class_list');
+        return auth()->guard('admin');
     }
 
     /**
-     * 重写登录视图页面
-     * @date   2016-09-05T23:06:16+0800
-     * @return [type]                   [description]
+     * Log the user out of the application.
+     *
+     * @param  Request  $request
+     * @return \Illuminate\Http\Response
      */
-    public function teacher_create()
+    public function logout()
     {
-        return view('company.teacher_create');
+        $this->guard('admin')->logout();
+
+        request()->session()->flush();
+
+        request()->session()->regenerate();
+
+        return redirect('/admin/login');
     }
 
-    /**
-     * 重写登录视图页面
-     * @date   2016-09-05T23:06:16+0800
-     * @return [type]                   [description]
-     */
-    public function teacher_list()
-    {
-        return view('company.teacher_list');
-    }
+
 }

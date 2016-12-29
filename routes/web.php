@@ -42,12 +42,11 @@ Route::group(['namespace' => 'Common'],function ($router)
     Route::group(['prefix' => 'location'],function ($router){
 
         $router->get('list/{type}/{pid}','LocationController@List')->name('location.list');
-
     });
 });
 
 
-Route::group(['namespace' => 'Console'],function ($router)
+Route::group(['namespace' => 'Console','middleware' => ['menu']],function ($router)
 {
     $router->get('home','HomeController@index')->name('home');
 
@@ -103,5 +102,30 @@ Route::group(['namespace' => 'Console'],function ($router)
 
         $router->get('qrcode','StudentController@ScanQrcode')->name('student.qrcode');
     });
+
+});
+
+
+
+Route::group(['namespace' => 'Admin'], function () {
+
+    //权限管理路由
+    Route::get('permission/{cid}/create', ['as' => 'admin.permission.create', 'uses' => 'PermissionController@create']);
+    Route::get('permission/manage', ['as' => 'admin.permission.manage', 'uses' => 'PermissionController@index']);
+    Route::get('permission/{cid?}', ['as' => 'admin.permission.index', 'uses' => 'PermissionController@index']);
+    Route::post('permission/index', ['as' => 'admin.permission.index', 'uses' => 'PermissionController@index']); //查询
+    Route::resource('permission', 'PermissionController', ['names' => ['update' => 'admin.permission.edit', 'store' => 'admin.permission.create']]);
+
+
+    //角色管理路由
+    Route::get('role/index', ['as' => 'admin.role.index', 'uses' => 'RoleController@index']);
+    Route::post('role/index', ['as' => 'admin.role.index', 'uses' => 'RoleController@index']);
+    Route::resource('role', 'RoleController', ['names' => ['update' => 'admin.role.edit', 'store' => 'admin.role.create']]);
+
+
+    //用户管理路由
+    Route::get('user/index', ['as' => 'admin.user.index', 'uses' => 'UserController@index']);  //用户管理
+    Route::post('user/index', ['as' => 'admin.user.index', 'uses' => 'UserController@index']);
+    Route::resource('user', 'UserController', ['names' => ['update' => 'admin.role.edit', 'store' => 'admin.role.create']]);
 
 });
