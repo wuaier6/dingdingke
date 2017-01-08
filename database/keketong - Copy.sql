@@ -151,3 +151,26 @@ CREATE TABLE `k_sudent_orderlesson` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
+
+CREATE TABLE `k_wechat_user` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) unsigned NOT NULL COMMENT 'z_user id',
+  `subscribe` tinyint(1) unsigned NOT NULL COMMENT '用户是否订阅该公众号标识，值为0时，代表此用户没有关注该公众号，拉取不到其余信息。',
+  `openid` varchar(32)  NOT NULL COMMENT '用户的标识，对当前公众号唯一',
+  `nickname` varchar(100) NOT NULL DEFAULT '',
+  `sex` tinyint(1) unsigned NOT NULL COMMENT '用户的性别，值为1时是男性，值为2时是女性，值为0时是未知',
+  `city` varchar(100)  NOT NULL DEFAULT '',
+  `country` varchar(100)  NOT NULL DEFAULT '',
+  `province` varchar(100) NOT NULL DEFAULT '',
+  `language` varchar(10) NOT NULL DEFAULT '' COMMENT '用户的语言，简体中文为zh_CN',
+  `headimgurl` varchar(255) NOT NULL DEFAULT '' COMMENT '用户头像，最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），用户没有头像时该项为空。若用户更换头像，原有头像URL将失效。',
+  `subscribe_time` int(11) unsigned NOT NULL COMMENT '用户关注时间，为时间戳。如果用户曾多次关注，则取最后关注时间',
+  `remark` varchar(255)  NOT NULL COMMENT '公众号运营者对粉丝的备注，公众号运营者可在微信公众平台用户管理界面对粉丝添加备注',
+  `groupid` int(11) unsigned NOT NULL COMMENT '用户所在的分组ID',
+  `privilege` varchar(255) NOT NULL DEFAULT '' COMMENT 'json:微信特权',
+  `unionid` varchar(32) NOT NULL DEFAULT '' COMMENT 'UnionID机制',
+  `wx_app_id` varchar(255) NOT NULL DEFAULT '' COMMENT '',
+  `role_type` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '1:普通账号,2：医生账号',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_z_wechat_user_openid` (`openid`,`wx_app_id`)
+) ENGINE=InnoDB;
