@@ -10,74 +10,36 @@ Target Server Type    : MYSQL
 Target Server Version : 50712
 File Encoding         : 65001
 
-Date: 2016-12-24 17:51:41
+Date: 2017-01-08 16:23:47
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for admin_menu
+-- Table structure for admin_permission_role
 -- ----------------------------
-DROP TABLE IF EXISTS `admin_menu`;
-CREATE TABLE `admin_menu` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `parent_id` int(11) NOT NULL DEFAULT '0',
-  `order` int(11) NOT NULL DEFAULT '0',
-  `title` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `icon` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `uri` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+DROP TABLE IF EXISTS `admin_permission_role`;
+CREATE TABLE `admin_permission_role` (
+  `permission_id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
--- Records of admin_menu
+-- Records of admin_permission_role
 -- ----------------------------
-INSERT INTO `admin_menu` VALUES ('1', '0', '1', 'Index', 'fa-bar-chart', '/', null, null);
-INSERT INTO `admin_menu` VALUES ('2', '0', '2', 'Admin', 'fa-tasks', '', null, null);
-INSERT INTO `admin_menu` VALUES ('3', '2', '3', 'Users', 'fa-users', 'auth/users', null, null);
-INSERT INTO `admin_menu` VALUES ('4', '2', '4', 'Roles', 'fa-user', 'auth/roles', null, null);
-INSERT INTO `admin_menu` VALUES ('5', '2', '5', 'Permission', 'fa-user', 'auth/permissions', null, null);
-INSERT INTO `admin_menu` VALUES ('6', '2', '6', 'Menu', 'fa-bars', 'auth/menu', null, null);
-INSERT INTO `admin_menu` VALUES ('7', '2', '7', 'Operation log', 'fa-history', 'auth/logs', null, null);
-
--- ----------------------------
--- Table structure for admin_operation_log
--- ----------------------------
-DROP TABLE IF EXISTS `admin_operation_log`;
-CREATE TABLE `admin_operation_log` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `path` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `method` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
-  `ip` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
-  `input` text COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `admin_operation_log_user_id_index` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- ----------------------------
--- Records of admin_operation_log
--- ----------------------------
-INSERT INTO `admin_operation_log` VALUES ('1', '1', 'admin', 'GET', '::1', '[]', '2016-12-21 07:40:21', '2016-12-21 07:40:21');
-INSERT INTO `admin_operation_log` VALUES ('2', '1', 'admin', 'GET', '::1', '[]', '2016-12-21 07:40:26', '2016-12-21 07:40:26');
-INSERT INTO `admin_operation_log` VALUES ('3', '1', 'admin', 'GET', '::1', '[]', '2016-12-21 07:40:31', '2016-12-21 07:40:31');
-INSERT INTO `admin_operation_log` VALUES ('4', '1', 'admin/auth/roles', 'GET', '::1', '{\"_pjax\":\"#pjax-container\"}', '2016-12-21 07:40:38', '2016-12-21 07:40:38');
-INSERT INTO `admin_operation_log` VALUES ('5', '1', 'admin/auth/menu', 'GET', '::1', '{\"_pjax\":\"#pjax-container\"}', '2016-12-21 07:40:40', '2016-12-21 07:40:40');
-INSERT INTO `admin_operation_log` VALUES ('6', '1', 'admin/auth/logs', 'GET', '::1', '{\"_pjax\":\"#pjax-container\"}', '2016-12-21 07:40:42', '2016-12-21 07:40:42');
-INSERT INTO `admin_operation_log` VALUES ('7', '1', 'admin/auth/logs', 'GET', '::1', '{\"_pjax\":\"#pjax-container\",\"_export\":\"1\"}', '2016-12-21 07:40:47', '2016-12-21 07:40:47');
-INSERT INTO `admin_operation_log` VALUES ('8', '1', 'admin/auth/logs', 'GET', '::1', '{\"_pjax\":\"#pjax-container\"}', '2016-12-21 07:40:50', '2016-12-21 07:40:50');
-INSERT INTO `admin_operation_log` VALUES ('9', '1', 'admin/auth/logs', 'GET', '::1', '{\"_pjax\":\"#pjax-container\"}', '2016-12-21 07:40:53', '2016-12-21 07:40:53');
-INSERT INTO `admin_operation_log` VALUES ('10', '1', 'admin/auth/logs', 'GET', '::1', '{\"_pjax\":\"#pjax-container\"}', '2016-12-21 07:40:55', '2016-12-21 07:40:55');
-INSERT INTO `admin_operation_log` VALUES ('11', '1', 'admin/auth/roles', 'GET', '::1', '{\"_pjax\":\"#pjax-container\"}', '2016-12-21 07:40:59', '2016-12-21 07:40:59');
-INSERT INTO `admin_operation_log` VALUES ('12', '1', 'admin', 'GET', '::1', '{\"_pjax\":\"#pjax-container\"}', '2016-12-21 07:41:00', '2016-12-21 07:41:00');
-INSERT INTO `admin_operation_log` VALUES ('13', '1', 'admin/auth/permissions', 'GET', '::1', '{\"_pjax\":\"#pjax-container\"}', '2016-12-21 07:41:03', '2016-12-21 07:41:03');
-INSERT INTO `admin_operation_log` VALUES ('14', '1', 'admin/auth/permissions/create', 'GET', '::1', '{\"_pjax\":\"#pjax-container\"}', '2016-12-21 07:41:06', '2016-12-21 07:41:06');
-INSERT INTO `admin_operation_log` VALUES ('15', '1', 'admin/auth/permissions', 'POST', '::1', '{\"slug\":\"123123\",\"name\":\"1231231\",\"_token\":\"fCnH21Xvg42dHFwvwp8nvREE98aKh1JLKMnyTMmZ\"}', '2016-12-21 07:41:15', '2016-12-21 07:41:15');
-INSERT INTO `admin_operation_log` VALUES ('16', '1', 'admin/auth/permissions', 'GET', '::1', '[]', '2016-12-21 07:41:16', '2016-12-21 07:41:16');
+INSERT INTO `admin_permission_role` VALUES ('2', '1');
+INSERT INTO `admin_permission_role` VALUES ('3', '1');
+INSERT INTO `admin_permission_role` VALUES ('4', '1');
+INSERT INTO `admin_permission_role` VALUES ('5', '1');
+INSERT INTO `admin_permission_role` VALUES ('6', '1');
+INSERT INTO `admin_permission_role` VALUES ('7', '1');
+INSERT INTO `admin_permission_role` VALUES ('8', '1');
+INSERT INTO `admin_permission_role` VALUES ('9', '1');
+INSERT INTO `admin_permission_role` VALUES ('10', '1');
+INSERT INTO `admin_permission_role` VALUES ('11', '1');
+INSERT INTO `admin_permission_role` VALUES ('12', '1');
+INSERT INTO `admin_permission_role` VALUES ('13', '1');
+INSERT INTO `admin_permission_role` VALUES ('15', '1');
 
 -- ----------------------------
 -- Table structure for admin_permissions
@@ -85,68 +47,48 @@ INSERT INTO `admin_operation_log` VALUES ('16', '1', 'admin/auth/permissions', '
 DROP TABLE IF EXISTS `admin_permissions`;
 CREATE TABLE `admin_permissions` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `slug` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '权限名',
+  `label` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '权限解释名称',
+  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '描述与备注',
+  `cid` tinyint(4) NOT NULL COMMENT '级别',
+  `icon` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '图标',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `admin_permissions_name_unique` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of admin_permissions
 -- ----------------------------
-INSERT INTO `admin_permissions` VALUES ('1', '1231231', '123123', '2016-12-21 07:41:15', '2016-12-21 07:41:15');
+INSERT INTO `admin_permissions` VALUES ('1', 'admin.permission', '权限管理', '', '0', 'fa-users', '2016-05-21 10:06:50', '2016-06-22 13:49:09');
+INSERT INTO `admin_permissions` VALUES ('2', 'admin.permission.index', '权限列表', '', '1', '', '2016-05-21 10:08:04', '2016-05-21 10:08:04');
+INSERT INTO `admin_permissions` VALUES ('3', 'admin.permission.create', '权限添加', '', '1', '', '2016-05-21 10:08:18', '2016-05-21 10:08:18');
+INSERT INTO `admin_permissions` VALUES ('4', 'admin.permission.edit', '权限修改', '', '1', '', '2016-05-21 10:08:35', '2016-05-21 10:08:35');
+INSERT INTO `admin_permissions` VALUES ('5', 'admin.permission.destroy ', '权限删除', '', '1', '', '2016-05-21 10:09:57', '2016-05-21 10:09:57');
+INSERT INTO `admin_permissions` VALUES ('6', 'admin.role.index', '角色列表', '', '1', '', '2016-05-23 10:36:40', '2016-05-23 10:36:40');
+INSERT INTO `admin_permissions` VALUES ('7', 'admin.role.create', '角色添加', '', '1', '', '2016-05-23 10:37:07', '2016-05-23 10:37:07');
+INSERT INTO `admin_permissions` VALUES ('8', 'admin.role.edit', '角色修改', '', '1', '', '2016-05-23 10:37:22', '2016-05-23 10:37:22');
+INSERT INTO `admin_permissions` VALUES ('9', 'admin.role.destroy', '角色删除', '', '1', '', '2016-05-23 10:37:48', '2016-05-23 10:37:48');
+INSERT INTO `admin_permissions` VALUES ('10', 'admin.user.index', '用户管理', '', '1', '', '2016-05-23 10:38:52', '2016-05-23 10:38:52');
+INSERT INTO `admin_permissions` VALUES ('11', 'admin.user.create', '用户添加', '', '1', '', '2016-05-23 10:39:21', '2016-06-22 13:49:29');
+INSERT INTO `admin_permissions` VALUES ('12', 'admin.user.edit', '用户编辑', '', '1', '', '2016-05-23 10:39:52', '2016-05-23 10:39:52');
+INSERT INTO `admin_permissions` VALUES ('13', 'admin.user.destroy', '用户删除', '', '1', '', '2016-05-23 10:40:36', '2016-05-23 10:40:36');
+INSERT INTO `admin_permissions` VALUES ('14', 'admin.permission2', '学生管理', '1234', '0', 'fa-skype', '2016-12-29 13:39:02', '2016-12-29 13:40:52');
+INSERT INTO `admin_permissions` VALUES ('15', '1342', '1342', '134', '14', '', '2016-12-29 13:39:36', '2016-12-29 13:43:22');
+INSERT INTO `admin_permissions` VALUES ('16', '134', '134', '1234', '14', '', '2016-12-29 13:43:32', '2016-12-29 13:43:32');
 
 -- ----------------------------
--- Table structure for admin_role_menu
+-- Table structure for admin_role_user
 -- ----------------------------
-DROP TABLE IF EXISTS `admin_role_menu`;
-CREATE TABLE `admin_role_menu` (
+DROP TABLE IF EXISTS `admin_role_user`;
+CREATE TABLE `admin_role_user` (
   `role_id` int(11) NOT NULL,
-  `menu_id` int(11) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  KEY `admin_role_menu_role_id_menu_id_index` (`role_id`,`menu_id`)
+  `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
--- Records of admin_role_menu
+-- Records of admin_role_user
 -- ----------------------------
-INSERT INTO `admin_role_menu` VALUES ('1', '2', null, null);
-
--- ----------------------------
--- Table structure for admin_role_permissions
--- ----------------------------
-DROP TABLE IF EXISTS `admin_role_permissions`;
-CREATE TABLE `admin_role_permissions` (
-  `role_id` int(11) NOT NULL,
-  `permission_id` int(11) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  KEY `admin_role_permissions_role_id_permission_id_index` (`role_id`,`permission_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- ----------------------------
--- Records of admin_role_permissions
--- ----------------------------
-
--- ----------------------------
--- Table structure for admin_role_users
--- ----------------------------
-DROP TABLE IF EXISTS `admin_role_users`;
-CREATE TABLE `admin_role_users` (
-  `role_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  KEY `admin_role_users_role_id_user_id_index` (`role_id`,`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- ----------------------------
--- Records of admin_role_users
--- ----------------------------
-INSERT INTO `admin_role_users` VALUES ('1', '1', null, null);
 
 -- ----------------------------
 -- Table structure for admin_roles
@@ -154,55 +96,115 @@ INSERT INTO `admin_role_users` VALUES ('1', '1', null, null);
 DROP TABLE IF EXISTS `admin_roles`;
 CREATE TABLE `admin_roles` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `slug` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '角色名称',
+  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '备注',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `admin_roles_name_unique` (`name`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of admin_roles
 -- ----------------------------
-INSERT INTO `admin_roles` VALUES ('1', 'Administrator', 'administrator', '2016-12-21 07:36:00', '2016-12-21 07:36:00');
-
--- ----------------------------
--- Table structure for admin_user_permissions
--- ----------------------------
-DROP TABLE IF EXISTS `admin_user_permissions`;
-CREATE TABLE `admin_user_permissions` (
-  `user_id` int(11) NOT NULL,
-  `permission_id` int(11) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  KEY `admin_user_permissions_user_id_permission_id_index` (`user_id`,`permission_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- ----------------------------
--- Records of admin_user_permissions
--- ----------------------------
+INSERT INTO `admin_roles` VALUES ('1', '管理员组', '管理员组', '2016-12-29 13:36:37', '2016-12-29 13:36:37');
 
 -- ----------------------------
 -- Table structure for admin_users
 -- ----------------------------
 DROP TABLE IF EXISTS `admin_users`;
 CREATE TABLE `admin_users` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `username` varchar(190) COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '管理员用户表ID',
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `admin_users_username_unique` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  UNIQUE KEY `admin_users_email_unique` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of admin_users
 -- ----------------------------
-INSERT INTO `admin_users` VALUES ('1', 'admin', '$2y$10$LqUhOStmY9aDjBuJaRjAdeuF8s3tCl/Q4cRjTFYQwIOZAIttBbmoa', 'Administrator', null, '2016-12-21 07:36:00', '2016-12-21 07:36:00');
+INSERT INTO `admin_users` VALUES ('1', 'root', 'root@admin.com', '$2y$10$TMccRt/jn4JG0FOOtSan0O1./jkoP7.5JU1qL8KhzJhW9iEsCxNzu', 'hvLHVZgqQn7Eta8qiMvF65YaJ5JeBqLigH4n5idNSutwAsAbcKlFqiXTcTUq', '2016-12-29 13:30:48', '2016-12-29 13:42:07');
+INSERT INTO `admin_users` VALUES ('2', 'shentao', 'shentao08@live.cn', '$2y$10$UuIl2NN6aCrvDWGdXdXVCOoh/m5yIoltl.7kcMHZ.Lz0thDGnCowO', 'Ng11WxyT8H9tyt4Dti3Ard9XmcyLRZzYj3DhLeYqTp3F80ylC8xtnLZvMPQq', '2016-12-29 13:41:58', '2016-12-29 13:42:55');
+
+-- ----------------------------
+-- Table structure for creater_bak
+-- ----------------------------
+DROP TABLE IF EXISTS `creater_bak`;
+CREATE TABLE `creater_bak` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+/*!50100 PARTITION BY RANGE (id)
+(PARTITION p0 VALUES LESS THAN (500) ENGINE = InnoDB,
+ PARTITION p1 VALUES LESS THAN (1000) ENGINE = InnoDB,
+ PARTITION p2 VALUES LESS THAN MAXVALUE ENGINE = InnoDB) */;
+
+-- ----------------------------
+-- Records of creater_bak
+-- ----------------------------
+INSERT INTO `creater_bak` VALUES ('1', '1234');
+INSERT INTO `creater_bak` VALUES ('2', '2');
+INSERT INTO `creater_bak` VALUES ('1000', '2');
+INSERT INTO `creater_bak` VALUES ('5000', '2');
+
+-- ----------------------------
+-- Table structure for k_class
+-- ----------------------------
+DROP TABLE IF EXISTS `k_class`;
+CREATE TABLE `k_class` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `company_id` varchar(40) NOT NULL DEFAULT '0' COMMENT '公司id',
+  `teacher_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '教师id',
+  `name` varchar(64) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of k_class
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for k_class_lesson
+-- ----------------------------
+DROP TABLE IF EXISTS `k_class_lesson`;
+CREATE TABLE `k_class_lesson` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `company_id` varchar(40) NOT NULL DEFAULT '0' COMMENT '公司id',
+  `class_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '班级',
+  `lesson_tag_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '课程',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of k_class_lesson
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for k_class_student
+-- ----------------------------
+DROP TABLE IF EXISTS `k_class_student`;
+CREATE TABLE `k_class_student` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `company_id` varchar(40) NOT NULL DEFAULT '0' COMMENT '公司id',
+  `class_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '班级',
+  `student_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '课程',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of k_class_student
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for k_company
@@ -228,12 +230,12 @@ CREATE TABLE `k_company` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of k_company
 -- ----------------------------
-INSERT INTO `k_company` VALUES ('4', 'df1b6ea0-c9ba-11e6-af4d-bd3315b73cb3', '1', '674567', '1', '0', '0', '4674567', '', '45674657', '[\"2\"]', '', '1', '', '1', '2016-12-24 09:25:12', '2016-12-24 09:40:00');
+INSERT INTO `k_company` VALUES ('5', 'd52c7720-cc04-11e6-957e-93b8c2689162', '2', 'ceshi', '6', '74', '835', 'ceshi', 'http://localhost:8000/storage/2/businesslicence/d52c7720-cc04-11e6-957e-93b8c2689162/3c0d8a97b94895d6f56fa0dee1957efa.jpeg', '1234', '[\"2\",\"3\",\"4\"]', '1234', 'http://localhost:8000/storage/2/id_card/d52c7720-cc04-11e6-957e-93b8c2689162/e2435c2aa8f7795d52479dfbf1984cba.jpeg', '1', '1234134', '1', '2016-12-27 07:19:41', '2016-12-27 07:29:44');
 
 -- ----------------------------
 -- Table structure for k_company_tag
@@ -260,7 +262,7 @@ INSERT INTO `k_company_tag` VALUES ('5', '小学教育');
 DROP TABLE IF EXISTS `k_lesson`;
 CREATE TABLE `k_lesson` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `company_id` varchar(40) NOT NULL DEFAULT '0' COMMENT '中心id',
+  `center_id` varchar(40) NOT NULL DEFAULT '0' COMMENT '中心id',
   `name` varchar(64) NOT NULL DEFAULT '' COMMENT '课程名称',
   `type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0:正常，1:户外',
   `room_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '教室id',
@@ -272,12 +274,56 @@ CREATE TABLE `k_lesson` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of k_lesson
 -- ----------------------------
 INSERT INTO `k_lesson` VALUES ('1', '1234', '46465465', '1', '1', '1482458026', '1482458026', '1', '0', '', '2016-12-23 09:53:28', '2016-12-23 09:53:30');
+INSERT INTO `k_lesson` VALUES ('2', '0', '', '0', '2', '1482865200', '1482868800', '6', '123', '1', '2016-12-27 12:02:26', '2016-12-27 12:02:26');
+INSERT INTO `k_lesson` VALUES ('3', '0', '', '0', '1', '1482796800', '1482796800', '6', '2', '1', '2016-12-27 12:04:45', '2016-12-27 12:04:45');
+
+-- ----------------------------
+-- Table structure for k_lesson_room
+-- ----------------------------
+DROP TABLE IF EXISTS `k_lesson_room`;
+CREATE TABLE `k_lesson_room` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `company_id` varchar(40) NOT NULL DEFAULT '0' COMMENT '公司id',
+  `name` varchar(64) NOT NULL,
+  `limit` tinyint(3) NOT NULL DEFAULT '0' COMMENT '限制人数',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of k_lesson_room
+-- ----------------------------
+INSERT INTO `k_lesson_room` VALUES ('1', 'd52c7720-cc04-11e6-957e-93b8c2689162', '3214', '3', '2016-12-27 07:55:51', '2016-12-27 07:55:51');
+INSERT INTO `k_lesson_room` VALUES ('2', 'd52c7720-cc04-11e6-957e-93b8c2689162', '1234', '1', '2016-12-27 07:56:01', '2016-12-27 08:04:42');
+
+-- ----------------------------
+-- Table structure for k_lesson_tag
+-- ----------------------------
+DROP TABLE IF EXISTS `k_lesson_tag`;
+CREATE TABLE `k_lesson_tag` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `company_id` varchar(40) NOT NULL DEFAULT '0' COMMENT '公司id',
+  `name` varchar(64) NOT NULL,
+  `type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态 1:必须 0:选修 ',
+  `pid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '上级ID。0:最上级',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态 1:有效 0:无效 ',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of k_lesson_tag
+-- ----------------------------
+INSERT INTO `k_lesson_tag` VALUES ('1', 'd52c7720-cc04-11e6-957e-93b8c2689162', '沙龙课', '1', '0', '1', '2016-12-27 16:49:09', '2016-12-27 16:49:13');
+INSERT INTO `k_lesson_tag` VALUES ('2', 'd52c7720-cc04-11e6-957e-93b8c2689162', '萨隆1', '1', '1', '1', '2016-12-27 16:49:23', '2016-12-27 16:49:25');
 
 -- ----------------------------
 -- Table structure for k_location
@@ -3562,10 +3608,30 @@ CREATE TABLE `k_student` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of k_student
+-- ----------------------------
+INSERT INTO `k_student` VALUES ('1', 'd52c7720-cc04-11e6-957e-93b8c2689162', '2', '2', '1234', '', '4', '49', '593', '12341@1234.com', '134', '1234', '1234', '1234', '1234', '', '1', '2016-12-28 20:16:54', '2016-12-28 20:16:54');
+
+-- ----------------------------
+-- Table structure for k_sudent_orderlesson
+-- ----------------------------
+DROP TABLE IF EXISTS `k_sudent_orderlesson`;
+CREATE TABLE `k_sudent_orderlesson` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `company_id` varchar(40) NOT NULL DEFAULT '0' COMMENT '公司id',
+  `student_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '学生id',
+  `lesson_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '课程id',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态 1:已预定 0:无效  2:已完成',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of k_sudent_orderlesson
 -- ----------------------------
 
 -- ----------------------------
@@ -3583,18 +3649,92 @@ CREATE TABLE `k_teacher` (
   `address` varchar(255) NOT NULL DEFAULT '' COMMENT '详细地址',
   `id_card` varchar(32) NOT NULL DEFAULT '' COMMENT '身份证',
   `cell` char(11) NOT NULL DEFAULT '' COMMENT '手机号',
-  `tags` varchar(255) NOT NULL DEFAULT '' COMMENT '教师类型 0:英语老师',
+  `subject` varchar(255) NOT NULL DEFAULT '' COMMENT '教师类型 0:英语老师',
+  `tags` varchar(255) NOT NULL DEFAULT '' COMMENT '阶段 1小学',
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态 1:有效 0:无效 ',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of k_teacher
 -- ----------------------------
-INSERT INTO `k_teacher` VALUES ('1', '1234123', 'ceshi45674567', 'http://pic.hualongxiang.com/attachment/upload/37/854037.jpg', '1', '1', '2', '1234123412341234', '1234123412341234', '1234', 'key', '1', '2016-12-22 20:17:48', '2016-12-22 12:47:33');
-INSERT INTO `k_teacher` VALUES ('2', '1234123', '安稳建业就35463546 ', 'http://pic.hualongxiang.com/attachment/upload/37/854037.jpg', '0', '0', '0', '', '', '', '', '1', '2016-12-22 20:23:11', '2016-12-22 20:23:14');
+INSERT INTO `k_teacher` VALUES ('3', 'df1b6ea0-c9ba-11e6-af4d-bd3315b73cb3', '2345', 'df1b6ea0-c9ba-11e6-af4d-bd3315b73cb3/teacher/headpic/3c0d8a97b94895d6f56fa0dee1957efa.jpeg', '1', '35', '380', '2345', '2435', '2345', '1', '1', '1', '2016-12-26 05:40:31', '2016-12-27 06:48:26');
+INSERT INTO `k_teacher` VALUES ('4', 'df1b6ea0-c9ba-11e6-af4d-bd3315b73cb3', '1234', 'df1b6ea0-c9ba-11e6-af4d-bd3315b73cb3/teacher/headpic/e2435c2aa8f7795d52479dfbf1984cba.jpeg', '1', '35', '380', '1234123412341234', '1234', '1234', '3', '2', '1', '2016-12-27 01:41:44', '2016-12-27 02:04:24');
+INSERT INTO `k_teacher` VALUES ('5', 'df1b6ea0-c9ba-11e6-af4d-bd3315b73cb3', '4567', 'df1b6ea0-c9ba-11e6-af4d-bd3315b73cb3/teacher/headpic/627de66f409fc26ce9118912b3e9d8a0.jpeg', '2', '36', '396', '4567', '4567', '4567', '1', '1', '1', '2016-12-27 02:05:47', '2016-12-27 02:06:14');
+INSERT INTO `k_teacher` VALUES ('6', 'd52c7720-cc04-11e6-957e-93b8c2689162', '测试2', 'http://localhost:8000/storage/d52c7720-cc04-11e6-957e-93b8c2689162/teacher/headpic/4d6984d144adeb5dbd3813056f8dee5f.jpeg', '4', '49', '595', '1234', '1234', '1234', '4', '4', '1', '2016-12-27 09:18:34', '2016-12-27 13:04:42');
+INSERT INTO `k_teacher` VALUES ('7', 'd52c7720-cc04-11e6-957e-93b8c2689162', '1234', 'http://localhost:8000/storage/d52c7720-cc04-11e6-957e-93b8c2689162/teacher/headpic/e2435c2aa8f7795d52479dfbf1984cba.jpeg', '6', '74', '837', '1234', '1234', 'wqer', '1', '3', '1', '2016-12-27 09:25:22', '2016-12-27 09:25:22');
+
+-- ----------------------------
+-- Table structure for k_teacher_subject
+-- ----------------------------
+DROP TABLE IF EXISTS `k_teacher_subject`;
+CREATE TABLE `k_teacher_subject` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of k_teacher_subject
+-- ----------------------------
+INSERT INTO `k_teacher_subject` VALUES ('1', '语文');
+INSERT INTO `k_teacher_subject` VALUES ('2', '数学');
+INSERT INTO `k_teacher_subject` VALUES ('3', '英语');
+INSERT INTO `k_teacher_subject` VALUES ('4', '美术');
+INSERT INTO `k_teacher_subject` VALUES ('5', '其他');
+INSERT INTO `k_teacher_subject` VALUES ('6', '音乐');
+
+-- ----------------------------
+-- Table structure for k_teacher_tag
+-- ----------------------------
+DROP TABLE IF EXISTS `k_teacher_tag`;
+CREATE TABLE `k_teacher_tag` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of k_teacher_tag
+-- ----------------------------
+INSERT INTO `k_teacher_tag` VALUES ('1', '小学');
+INSERT INTO `k_teacher_tag` VALUES ('2', '初中');
+INSERT INTO `k_teacher_tag` VALUES ('3', '高中');
+INSERT INTO `k_teacher_tag` VALUES ('4', '幼儿园');
+INSERT INTO `k_teacher_tag` VALUES ('5', '培训机构');
+
+-- ----------------------------
+-- Table structure for k_wechat_user
+-- ----------------------------
+DROP TABLE IF EXISTS `k_wechat_user`;
+CREATE TABLE `k_wechat_user` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) unsigned NOT NULL COMMENT 'z_user id',
+  `subscribe` tinyint(1) unsigned NOT NULL COMMENT '用户是否订阅该公众号标识，值为0时，代表此用户没有关注该公众号，拉取不到其余信息。',
+  `openid` varchar(32) NOT NULL COMMENT '用户的标识，对当前公众号唯一',
+  `nickname` varchar(100) NOT NULL DEFAULT '',
+  `sex` tinyint(1) unsigned NOT NULL COMMENT '用户的性别，值为1时是男性，值为2时是女性，值为0时是未知',
+  `city` varchar(100) NOT NULL DEFAULT '',
+  `country` varchar(100) NOT NULL DEFAULT '',
+  `province` varchar(100) NOT NULL DEFAULT '',
+  `language` varchar(10) NOT NULL DEFAULT '' COMMENT '用户的语言，简体中文为zh_CN',
+  `headimgurl` varchar(255) NOT NULL DEFAULT '' COMMENT '用户头像，最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），用户没有头像时该项为空。若用户更换头像，原有头像URL将失效。',
+  `subscribe_time` int(11) unsigned NOT NULL COMMENT '用户关注时间，为时间戳。如果用户曾多次关注，则取最后关注时间',
+  `remark` varchar(255) NOT NULL COMMENT '公众号运营者对粉丝的备注，公众号运营者可在微信公众平台用户管理界面对粉丝添加备注',
+  `groupid` int(11) unsigned NOT NULL COMMENT '用户所在的分组ID',
+  `privilege` varchar(255) NOT NULL DEFAULT '' COMMENT 'json:微信特权',
+  `unionid` varchar(32) NOT NULL DEFAULT '' COMMENT 'UnionID机制',
+  `wx_app_id` varchar(255) NOT NULL DEFAULT '',
+  `role_type` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '1:普通账号,2：医生账号',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_z_wechat_user_openid` (`openid`,`wx_app_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of k_wechat_user
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for migrations
@@ -3605,39 +3745,55 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of migrations
 -- ----------------------------
-INSERT INTO `migrations` VALUES ('1', '2016_01_04_173148_create_admin_tables', '1');
+INSERT INTO `migrations` VALUES ('1', '2014_10_12_000000_create_users_table', '1');
+INSERT INTO `migrations` VALUES ('2', '2014_10_12_100000_create_password_resets_table', '1');
+INSERT INTO `migrations` VALUES ('3', '2016_11_10_033438_create_admin_users_table', '1');
+INSERT INTO `migrations` VALUES ('4', '2016_11_10_034922_create_admin_permissions_table', '1');
+INSERT INTO `migrations` VALUES ('5', '2016_11_10_034952_create_admin_roles_table', '1');
+INSERT INTO `migrations` VALUES ('6', '2016_11_10_035417_create_admin_role_user_table', '1');
+INSERT INTO `migrations` VALUES ('7', '2016_11_10_035534_create_admin_permission_role_table', '1');
 
 -- ----------------------------
--- Table structure for z_company
+-- Table structure for password_resets
 -- ----------------------------
-DROP TABLE IF EXISTS `z_company`;
-CREATE TABLE `z_company` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` varchar(40) NOT NULL COMMENT '用户id',
-  `name` varchar(255) NOT NULL COMMENT '公司名',
-  `province_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '省级行政区id。Z_LOCATION(ID)',
-  `city_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '地级行政区id。Z_LOCATION(ID)',
-  `district_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '区县ID',
-  `address` varchar(255) NOT NULL DEFAULT '' COMMENT '详细地址',
-  `business_licence` varchar(255) NOT NULL DEFAULT '' COMMENT '营业执照',
-  `business_entity` varchar(64) NOT NULL DEFAULT '' COMMENT '企业法人',
-  `company_type` varchar(255) NOT NULL DEFAULT '' COMMENT '机构类型',
-  `id_card` varchar(255) NOT NULL DEFAULT '' COMMENT '身份证',
-  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态。1:审核通过 0:待审核 2:审核通不过 ',
-  `open` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态。1:开启 0:关闭 ',
+DROP TABLE IF EXISTS `password_resets`;
+CREATE TABLE `password_resets` (
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  KEY `password_resets_email_index` (`email`),
+  KEY `password_resets_token_index` (`token`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ----------------------------
+-- Records of password_resets
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for users
+-- ----------------------------
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_email_unique` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
--- Records of z_company
+-- Records of users
 -- ----------------------------
+INSERT INTO `users` VALUES ('1', '134', 'manager@manager.com', '$2y$10$ptJ4ka.u5m4UXR/0CKuAsO026O9m8pNHNuBTAKy6VxFOIW1PQ2u5C', null, '2017-01-08 12:05:00', '2017-01-08 12:05:00');
 
 -- ----------------------------
 -- Table structure for z_opt_log
@@ -3656,4 +3812,8 @@ CREATE TABLE `z_opt_log` (
   `message` mediumtext NOT NULL COMMENT '消息内容',
   `log_level` varchar(5) NOT NULL COMMENT '等级。DEBUG INFO WARN ERROR FATAL',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=738 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2313 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of z_opt_log
+-- ----------------------------

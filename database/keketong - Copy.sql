@@ -151,7 +151,7 @@ CREATE TABLE `k_sudent_orderlesson` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
-
+DROP TABLE IF EXISTS `k_wechat_user`;
 CREATE TABLE `k_wechat_user` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(11) unsigned NOT NULL COMMENT 'z_user id',
@@ -174,3 +174,18 @@ CREATE TABLE `k_wechat_user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_z_wechat_user_openid` (`openid`,`wx_app_id`)
 ) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS `k_adminuser`;
+CREATE TABLE `k_adminuser` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `cell` char(11) NOT NULL DEFAULT '' COMMENT '手机号',
+  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_email_unique` (`email`),
+  UNIQUE KEY `users_email_unique` (`cell`),
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
