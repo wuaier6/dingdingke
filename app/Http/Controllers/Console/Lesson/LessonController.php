@@ -11,6 +11,8 @@ use Validator;
 use App\Repositories\LessonTagRepositoryEloquent;
 use App\Repositories\LessonRoomRepositoryEloquent;
 use App\Repositories\TeacherRepositoryEloquent;
+
+use App\Http\Requests\LessonRequest;
 class LessonController extends Controller
 {
     protected $lesson;
@@ -31,25 +33,6 @@ class LessonController extends Controller
         $this->teacher=$teacher;
     }
 
-    /**
-     * 一览
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function ListView(Request $request)
-    {
-        $lesson_list=   $this->lesson->lesson_list();
-        $lesson_format=array();
-        foreach($lesson_list as $lesson_value){
-            $day = date("Y-m-d", $lesson_value->start_time);
-            $lesson_format[$day][]=$lesson_value;
-        }
-
-        $data['lesson_list']=$lesson_format;
-
-        return view('company.class_list',$data);
-    }
-
-
     public function index(Request $request){
         $lesson_list=   $this->lesson->lesson_list();
         $lesson_format=array();
@@ -64,6 +47,7 @@ class LessonController extends Controller
     }
 
     public function Create(Request $request){
+
         $company_id=$this->company_id;
         $data['lessontag']= $this->lessontag->findwhere(["company_id"=>$company_id,"pid"=>0])->all();
         $data['lessonroom']= $this->lessonroom->findwhere(["company_id"=>$company_id])->all();
@@ -75,11 +59,9 @@ class LessonController extends Controller
 
     }
 
-    public function DoCreate(Request $request){
+    public function DoCreate(Request $request, LessonRequest $LessonRequest){
         $data = $request->all();
-
         $company_id = $this->company_id;
-
         $lesson['company_id']= $company_id;
         $lesson['name']= $data['name'];
         $lesson['room_id']= $data['room_id'];

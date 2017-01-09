@@ -100,7 +100,7 @@
                     <div class="col-sm-6">
                         <input type="file" class="picture" id="business_licence" multiple=false name="business_licence"/>
                         <input type="hidden" class="picture_action" name="business_licence_action" id="business_licence_action"
-                               value="0"/>
+                               value="1"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -109,7 +109,7 @@
                     <div class="col-sm-6">
                         <input type="file" class="picture" id="id_card" name="id_card"/>
                         <input type="hidden" class="picture_action" name="id_card_action" id="id_card_action"
-                               value="0"/>
+                               value="1"/>
                     </div>
                 </div>
                 <div class="form-group ">
@@ -215,11 +215,6 @@
                 "initialCaption": ""
             });
 
-            $("#business_licence").on('filecleared', function (event) {
-                $("#business_licence_action").val(2);
-                $("#business_licence_id").val("");
-            });
-
             $("#id_card").fileinput({
                 "overwriteInitial": true,
                 "showUpload": false, //是否显示上传按钮
@@ -228,11 +223,6 @@
                 "initialPreview":false,
                 "allowedFileTypes": ["image"],
                 "initialCaption": ""
-            });
-
-            $("#id_card").on('filecleared', function (event) {
-                $("#business_licence_action").val(2);
-                $("#business_licence_id").val("");
             });
 
         });

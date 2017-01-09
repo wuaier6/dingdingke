@@ -125,7 +125,7 @@ Route::group(['namespace' => 'Admin'], function () {
     Route::resource('user', 'UserController', ['names' => ['update' => 'admin.role.edit', 'store' => 'admin.role.create']]);
 
 });
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index');
+//
+//Auth::routes();
+//
+//Route::get('/home', 'HomeController@index');

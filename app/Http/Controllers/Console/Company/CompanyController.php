@@ -8,6 +8,7 @@ use App\Repositories\CompanyTagRepositoryEloquent;
 use App\Repositories\LocationRepositoryEloquent;
 use Validator;
 use Uuid;
+use App\Http\Requests\CompanyRequest;
 
 class CompanyController extends Controller
 {
@@ -28,8 +29,13 @@ class CompanyController extends Controller
     }
 
 
-    protected $user_id = 2;
+    protected $user_id = 3;
 
+    /**
+     * 机构首页
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     */
     public function index(Request $request)
     {
         $company_info = $this->company->findwhere(array("user_id" => $this->user_id))->first();
@@ -48,6 +54,7 @@ class CompanyController extends Controller
 
     }
 
+    //创建机构
     public function Create(Request $request)
     {
         $companytag = $this->companytag->all();
@@ -67,9 +74,10 @@ class CompanyController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function DoCreate(Request $request)
+    public function DoCreate(Request $request,CompanyRequest $CompanyRequest)
     {
         $data = $request->all();
+
         $company_info = $this->company->findwhere(array("user_id" => $this->user_id))->first();
         if (!is_null($company_info)) {
             //已经存在机构
@@ -91,7 +99,7 @@ class CompanyController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function DoEdit(Request $request)
+    public function DoEdit(Request $request ,CompanyRequest $CompanyRequest)
     {
 
         $data = $request->all();
@@ -104,7 +112,7 @@ class CompanyController extends Controller
         $company_id = $data['company_id'];
 
         //图片另存为
-        if ($data['id_card_action'] <> 0) {
+        if ($data['id_card_action'] == 1) {
             if (isset($data['id_card']) && $data['id_card'] != '') {
                 $data['id_card'] = asset('storage/' . $request->file('id_card')->store("/" . $this->user_id . '/id_card/' . $company_id));
             }
@@ -112,7 +120,7 @@ class CompanyController extends Controller
             unset($data['id_card']);
         }
 
-        if ($data['business_licence_action'] <> 0) {
+        if ($data['business_licence_action'] == 1) {
             if (isset($data['business_licence']) && $data['business_licence'] != '') {
                 $data['business_licence'] = asset('storage/' . $request->file('business_licence')->store("/" . $this->user_id . '/businesslicence/' . $company_id));
             }
@@ -122,7 +130,10 @@ class CompanyController extends Controller
 
         $data['company_id'] = $company_id;
         $data['tags'] = json_encode($data['tags']);
+        //状态修改为审核中
+        $data['status'] = 0;
         $this->company->updateOrCreate(['company_id' => $company_id, 'user_id' => $this->user_id], $data);
         return $this->return_json_data(1);
     }
+
 }

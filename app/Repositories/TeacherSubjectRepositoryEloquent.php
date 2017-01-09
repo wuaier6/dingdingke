@@ -23,8 +23,6 @@ class TeacherSubjectRepositoryEloquent extends BaseRepository implements Teacher
         return TeacherSubject::class;
     }
 
-    
-
     /**
      * Boot up the repository, pushing criteria
      */
