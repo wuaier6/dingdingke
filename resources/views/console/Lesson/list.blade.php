@@ -42,11 +42,10 @@
                         <td>{{date("H:i", $lesson_val->start_time)}}-{{date("H:i", $lesson_val->end_time)}}</td>
                         <td>{{$lesson_val->name}}</td>
                         <td>{{$lesson_val->teacher_name}}</td>
-                        <td>av room</td>
+                        <td>{{$lesson_val->room_name}}</td>
                         <td>
                             <div class="btn-group">
-                                <button type="button" class="btn btn-xs btn-info grid-order-up" data-id=""><i class="fa fa-caret-up fa-fw"></i></button>
-                                <button type="button" class="btn btn-xs btn-default grid-order-down" data-id=""><i class="fa fa-caret-down fa-fw"></i></button>
+                                <a href="/lesson/edit/{{$lesson_val->id}}">编辑</a>
                             </div>
                         </td>
                     </tr>

@@ -51,7 +51,6 @@ class CompanyController extends Controller
         $companytag = $this->companytag->all();
         $data['companytag'] = $companytag;
         return view('console.company.edit', $data);
-
     }
 
     //创建机构

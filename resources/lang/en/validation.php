@@ -85,6 +85,8 @@ return [
     'unique'               => 'The :attribute has already been taken.',
     'uploaded'             => 'The :attribute failed to upload.',
     'url'                  => 'The :attribute format is invalid.',
+    'identitycards' => '身份证号格式错误！',
+    'identitycell' => '手机号格式错误！',
 
     /*
     |--------------------------------------------------------------------------

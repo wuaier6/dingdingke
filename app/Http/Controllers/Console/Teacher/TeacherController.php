@@ -13,6 +13,8 @@ use OSS\OssClient;
 use OSS\Core\OssException;
 use log;
 use Wechat;
+use App\Http\Requests\TeacherRequest;
+use Endroid\QrCode\QrCode;
 class TeacherController extends Controller
 {
     protected $company;
@@ -54,9 +56,9 @@ class TeacherController extends Controller
         return view('console.teacher.create',$data);
     }
 
-    public function DoCreate(Request $request){
+    public function DoCreate(Request $request,TeacherRequest $TeacherRequest){
         $data=$request->all();
-        $company_id=$data['company_id'];
+        $company_id=$this->company_id;
         $company_info=$this->company->findwhere(array("company_id"=>$company_id))->first();
         if(is_null($company_info)){
             //已经不存在机构
@@ -97,29 +99,43 @@ class TeacherController extends Controller
         return view('console.teacher.edit',$data);
     }
 
-    public function DoEdit(Request $request){
+    public function DoEdit(Request $request ,TeacherRequest $TeacherRequest){
         $data=$request->all();
 
-        $company_id =$data['company_id'];
+        $company_id =$this->company_id;
+
+        $teacher_info=$this->teacher->findwhere(["company_id"=>$this->company_id,'id'=>$data['teacher_id']])->first();
+        if(is_null($teacher_info)){
+            //教师不存在
+            return $this->return_json_error_data(-1);
+        }
         //图片另存为
-        if ($data['headpic_action'] <> 0) {
+        if ($data['headpic_action'] == 1) {
             if (isset($data['headpic']) && $data['headpic'] != '') {
                 $data['headpic'] =asset('storage/' . $request->file('headpic')->store("/".$company_id.'/teacher/headpic'));
             }
         }else{
             unset($data['headpic']);
         }
-
         $data['company_id']=$company_id;
-        $this->teacher->updateOrCreate(['company_id'=>$company_id,'id'=>$data['teacher_id']], $data);
+        $this->teacher->updateOrCreate(['id'=>$data['teacher_id']], $data);
         return $this->return_json_data(1);
     }
 
-    public function ScanQrcode(Request $request){
-        $wechat = app('wechat');
-        $qrcode = $wechat->qrcode;
-        $result = $qrcode->temporary(56, 6 * 24 * 3600);
-        return $this->return_json_data(1,$result);
+    public function WxScanQrcode(Request $request,$teacher_id){
+        try{
+            $wechat = app('wechat');
+            $qrcode = $wechat->qrcode;
+            $result = $qrcode->temporary("teacher_scan".$teacher_id, 6 * 24 * 3600);
+        } catch (\Exception $ex) {
+            return $this->return_json_data(-1);
+        }
+        $qrCode = new QrCode();
+        $qrCode->setText($result['url']);
+        header('Content-Type: '.$qrCode->getContentType());
+        $qrCode->render();
+        print_r($qrCode);
+        die;
     }
 
 }

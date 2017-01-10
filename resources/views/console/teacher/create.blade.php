@@ -95,7 +95,7 @@
                     <div class="col-sm-6">
                         <input type="file" class="picture" id="headpic" name="headpic" />
 
-                        <input type="hidden"  name="headpic_action" id="headpic_action"  value="0"/>
+                        <input type="hidden"  name="headpic_action" id="headpic_action"  value="1"/>
                     </div>
                 </div>
                 <div class="form-group ">
@@ -186,11 +186,6 @@
                 "initialPreview": false,
                 "allowedFileTypes":["image"],
                 "initialCaption":""});
-
-            $("#headpic").on('filecleared', function(event) {
-                $("#picture_action").val(2);
-                $("#picture_id").val("");
-            });
 
         });
     </script>

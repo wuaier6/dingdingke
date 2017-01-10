@@ -64,7 +64,7 @@ Route::group(['namespace' => 'Console','middleware' => ['menu']],function ($rout
         $router->post('create','TeacherController@DoCreate')->name('teacher.docreate');
         $router->post('edit','TeacherController@DoEdit')->name('teacher.docreate');
 
-        $router->get('qrcode','TeacherController@ScanQrcode')->name('teacher.qrcode');
+        $router->get('qrcode/{teacher_id}','TeacherController@WxScanQrcode')->name('teacher.qrcode');
     });
 
     Route::group(['prefix' => 'classes','namespace' => 'Classes'],function ($router){

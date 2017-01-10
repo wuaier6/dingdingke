@@ -11,7 +11,7 @@ class Lesson extends BaseModel implements Transformable
     use TransformableTrait;
 
     protected $table = 'k_lesson';
-    protected $fillable = ['center_id','type','room_id','start_time','end_time','teacher_id','limit','tags'];
+    protected $fillable = ['company_id','name','type','room_id','start_time','end_time','teacher_id','limit','tags'];
 
 }
 

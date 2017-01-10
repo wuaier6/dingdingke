@@ -21,7 +21,7 @@
 <!-- Main content -->
 <section class="content">
     <div class="box box-default">
-        <form action="/lesson/create" method="post" accept-charset="UTF-8"
+        <form action="/lesson/create" id="form_create_lesson" method="post" accept-charset="UTF-8"
               class="form-horizontal" pjax-container="">
             <div class="box-body">
                 <div class="form-group">
@@ -100,8 +100,7 @@
                     <label class="col-sm-2 control-label">限制人数</label>
                     <div class="col-sm-6">
                         <div class="input-group">
-                            <input type="text" id="limit" name="limit" value="" class="form-control"
-                                   placeholder="Company Name">
+                            <input type="text" id="limit" name="limit" value="0" class="form-control" placeholder="0" style="width: 100px" />
                         </div>
                     </div>
                 </div>
@@ -112,7 +111,7 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="btn-group pull-right">
-                        <button type="submit" class="btn btn-info pull-right">Submit</button>
+                        <button type="submit" class="btn btn-info pull-right" id="btn_add_lesson">Submit</button>
                     </div>
                     <div class="btn-group pull-left">
                         <input type="reset" class="btn btn-warning" value="Reset">
@@ -137,6 +136,8 @@
     <script src="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.43/js/bootstrap-datetimepicker.min.js"></script>
     <script src="/packages/admin/AdminLTE/plugins/select2/select2.full.min.js"></script>
     <script src="/packages/admin/AdminLTE/plugins/iCheck/icheck.min.js"></script>
+
+    <script src="/packages/admin/number-input/bootstrap-number-input.js"></script>
     <script>
         $(document).ready(function () {
             $("#classroom").select2();
@@ -145,8 +146,34 @@
             $("#tags").select2();
             $("#level").select2();
             $('#lesson_day').datetimepicker({"format":"YYYY-MM-DD","locale":"en"});
-            $('#start').datetimepicker({"format":"HH:00","locale":"en"});
-            $('#end').datetimepicker({"format":"HH:00","locale":"en"});
+            $('#start').datetimepicker({"format":"HH","locale":"en"});
+            $('#end').datetimepicker({"format":"HH","locale":"en"});
+
+            var options = {
+                success: showResponse  // post-submit callback
+            };
+
+            var showResponse = function (responseText, statusText, xhr, $form) {
+                if (typeof(responseText) == 'string') {
+                    responseText = $.parseJSON(responseText);
+                }
+                //  showErrorMessage(responseText.data);
+                if (responseText.code > 0) {
+                    alert(1);
+                }
+            };
+
+            $('#btn_add_lesson').click(function(){
+                $("#form_create_lesson").ajaxSubmit(options);
+                return false;
+            });
+
+            $('#limit').bootstrapNumber({
+                upClass: 'success',
+                downClass: 'primary',
+                center: true
+            });
+
         });
     </script>
 @endsection

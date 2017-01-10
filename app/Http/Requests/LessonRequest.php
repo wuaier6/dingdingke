@@ -25,12 +25,12 @@ class LessonRequest extends Request
     {
         return [
             "name" => 'bail|required',
-            "type" => 'bail|required|integer',
+            "type" => '',
             "room_id" => 'bail|required|integer|min:1',
-            "lesson_day" => 'bail|required',
-            "start" => 'bail|required',
-            "end" => 'bail|required',
-            "teacher_id" => 'bail|required|integer',
+            "lesson_day" => 'bail|required|date',
+            "start" => 'bail|required|integer',
+            "end" => 'bail|required|integer',
+            "teacher_id" => 'bail|required|integer|min:1',
             "limit" => 'bail|required|integer',
             "tags" => 'bail|required',
         ];
