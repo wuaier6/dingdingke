@@ -3589,9 +3589,6 @@ INSERT INTO `k_location` VALUES ('3240', '五家渠市', '378', '2', '0');
 DROP TABLE IF EXISTS `k_student`;
 CREATE TABLE `k_student` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `company_id` varchar(40) NOT NULL DEFAULT '0' COMMENT '公司id',
-  `level` tinyint(1) NOT NULL DEFAULT '1' COMMENT '级别 1:幼儿园,2:小学,3:初中,4:高中',
-  `grate` tinyint(1) NOT NULL DEFAULT '1' COMMENT ' 0:一年级',
   `name` varchar(60) NOT NULL DEFAULT '' COMMENT '姓名',
   `headpic` varchar(255) NOT NULL DEFAULT '' COMMENT '头像',
   `province_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '省级行政区id。k_location(ID)',
@@ -3604,11 +3601,24 @@ CREATE TABLE `k_student` (
   `id_card` varchar(32) NOT NULL DEFAULT '' COMMENT '身份证',
   `cell` char(11) NOT NULL DEFAULT '' COMMENT '手机号',
   `tags` varchar(255) NOT NULL DEFAULT '' COMMENT '学员类型',
+  `level` tinyint(1) NOT NULL DEFAULT '1' COMMENT '级别 1:幼儿园,2:小学,3:初中,4:高中',
+  `grate` tinyint(1) NOT NULL DEFAULT '1' COMMENT ' 0:一年级',
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态 1:有效 0:无效 ',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS `k_company_student`;
+CREATE TABLE `k_company_student` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+`company_id` varchar(40) NOT NULL DEFAULT '0' COMMENT '公司id',
+`student_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '学生id',
+`status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态 1:有效 0:无效 ',
+`created_at` timestamp NULL DEFAULT NULL,
+`updated_at` timestamp NULL DEFAULT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of k_student
@@ -3640,7 +3650,6 @@ CREATE TABLE `k_sudent_orderlesson` (
 DROP TABLE IF EXISTS `k_teacher`;
 CREATE TABLE `k_teacher` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `company_id` varchar(40) NOT NULL DEFAULT '0' COMMENT '公司id',
   `name` varchar(60) NOT NULL DEFAULT '' COMMENT '姓名',
   `headpic` varchar(255) NOT NULL DEFAULT '' COMMENT '头像',
   `province_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '省级行政区id。k_location(ID)',
@@ -3657,6 +3666,16 @@ CREATE TABLE `k_teacher` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
+DROP TABLE IF EXISTS `k_company_teacher`;
+CREATE TABLE `k_company_teacher` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+`company_id` varchar(40) NOT NULL DEFAULT '0' COMMENT '公司id',
+`teacher_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '教师id',
+`status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态 1:有效 0:无效 ',
+`created_at` timestamp NULL DEFAULT NULL,
+`updated_at` timestamp NULL DEFAULT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 -- ----------------------------
 -- Records of k_teacher
 -- ----------------------------

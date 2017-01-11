@@ -54,7 +54,7 @@ class LessonController extends Controller
         $company_id = $this->company_id;
         $data['lessontag'] = $this->lessontag->findwhere(["company_id" => $company_id, "pid" => 0])->all();
         $data['lessonroom'] = $this->lessonroom->findwhere(["company_id" => $company_id])->all();
-        $data['teacher'] = $this->teacher->findwhere(["company_id" => $company_id])->all();
+        $data['teacher'] = $this->teacher->get_teacher_list($company_id);
         return view('console.lesson.create', $data);
     }
 
@@ -68,7 +68,7 @@ class LessonController extends Controller
         }
         $data['lessontag'] = $this->lessontag->findwhere(["company_id" => $company_id, "pid" => 0])->all();
         $data['lessonroom'] = $this->lessonroom->findwhere(["company_id" => $company_id])->all();
-        $data['teacher'] = $this->teacher->findwhere(["company_id" => $company_id])->all();
+        $data['teacher'] = $this->teacher->get_teacher_list($company_id);
         $data['lesson_info'] = $lesson_info;
         return view('console.lesson.edit',$data);
 
@@ -109,7 +109,6 @@ class LessonController extends Controller
         $lesson['start_time'] = strtotime($data['lesson_day']) + $data['start']*3600;
         $lesson['end_time'] = strtotime($data['lesson_day']) + $data['end']*3600;
 
-
         $is_exist = $this->lesson->lesson_isexist($lesson['start_time'], $lesson['end_time'],  $lesson['room_id'],  $lesson['teacher_id'], $data['lesson_id']);
         //当前时段存在课程
         if ($is_exist) {
@@ -117,6 +116,13 @@ class LessonController extends Controller
         }
 
         $this->lesson->updateOrCreate(['company_id' => $company_id, 'id' =>  $data['lesson_id']], $lesson);
+        return $this->return_json_data(1);
+    }
+
+    public function DoRemove(Request $request)
+    {
+        $data = $request->all();
+        $this->lesson->delete($data['lesson_id']);
         return $this->return_json_data(1);
     }
 

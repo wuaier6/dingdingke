@@ -81,6 +81,7 @@ Route::group(['namespace' => 'Console','middleware' => ['menu']],function ($rout
         $router->get('edit/{lesson_id}','LessonController@Edit')->name('lesson.edit');
         $router->post('create','LessonController@DoCreate')->name('lesson.docreate');
         $router->post('edit','LessonController@DoEdit')->name('lesson.doedit');
+        $router->post('remove','LessonController@DoRemove')->name('lesson.remove');
     });
 
     Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router){
@@ -91,6 +92,7 @@ Route::group(['namespace' => 'Console','middleware' => ['menu']],function ($rout
 
     Route::group(['prefix' => 'student','namespace' => 'Student'],function ($router){
         $router->get('index','StudentController@index')->name('student.index');
+
         $router->get('create','StudentController@Create')->name('student.create');
         $router->get('edit/{student_id}','StudentController@Edit')->name('student.edit');
         $router->post('create','StudentController@DoCreate')->name('student.docreate');

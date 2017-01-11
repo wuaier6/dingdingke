@@ -10,5 +10,7 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  */
 interface TeacherRepository extends RepositoryInterface
 {
-    //
+
+    public function get_teacher_list($company_id);
+
 }

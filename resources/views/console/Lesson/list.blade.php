@@ -47,6 +47,9 @@
                             <div class="btn-group">
                                 <a href="/lesson/edit/{{$lesson_val->id}}">编辑</a>
                             </div>
+                            <div class="btn-group">
+                                <a href="#" name="btn_remove" data-id="{{$lesson_val->id}}">删除</a>
+                            </div>
                         </td>
                     </tr>
                     <?php $i++;?>
@@ -65,7 +68,16 @@
 @section('script')
     <script>
         $(document).ready(function () {
+            $("a[name='btn_remove']").click(function(){
+                var lesson_id=$(this).attr('data-id');
+                $.post('/lesson/remove',
+                {
+                    lesson_id: lesson_id,
+                }, function (output) {
+                    alert(1);
+                });
 
+            })
         });
     </script>
 @endsection

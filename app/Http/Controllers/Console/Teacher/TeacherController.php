@@ -8,6 +8,8 @@ use App\Repositories\TeacherRepositoryEloquent;
 use App\Repositories\LocationRepositoryEloquent;
 use App\Repositories\TeacherTagRepositoryEloquent;
 use App\Repositories\TeacherSubjectRepositoryEloquent;
+use App\Repositories\CompanyTeacherRepositoryEloquent;
+
 use Validator;
 use OSS\OssClient;
 use OSS\Core\OssException;
@@ -22,7 +24,7 @@ class TeacherController extends Controller
     protected $location;
     protected $teachertag;
     protected $teachersubject;
-
+    protected $companyteacher;
     /**
      * TeacherController constructor.
      * @param TeacherRepositoryEloquent $teacher
@@ -30,10 +32,11 @@ class TeacherController extends Controller
      * @param TeacherTagRepositoryEloquent $teachertag
      * @param TeacherSubjectRepositoryEloquent $teachersubject
      */
-    public function __construct(CompanyRepositoryEloquent  $company, TeacherRepositoryEloquent $teacher,LocationRepositoryEloquent $location,TeacherTagRepositoryEloquent $teachertag,TeacherSubjectRepositoryEloquent $teachersubject)
+    public function __construct(CompanyRepositoryEloquent  $company, TeacherRepositoryEloquent $teacher, CompanyTeacherRepositoryEloquent $companyteacher,LocationRepositoryEloquent $location,TeacherTagRepositoryEloquent $teachertag,TeacherSubjectRepositoryEloquent $teachersubject)
     {
         $this->company=$company;
         $this->teacher=$teacher;
+        $this->companyteacher=$companyteacher;
         $this->location=$location;
 
         $this->teachertag=$teachertag;
@@ -42,7 +45,7 @@ class TeacherController extends Controller
 
     public function index(Request $request){
 
-        $teacherlist=$this->teacher->findwhere(['company_id'=>$this->company_id,'status'=>1])->all();
+        $teacherlist=$this->teacher->get_teacher_list($this->company_id);
         $data['teacher_list']=$teacherlist;
         $data['company_id']=$this->company_id;
         return view('console.teacher.list',$data);
@@ -78,12 +81,13 @@ class TeacherController extends Controller
 //            print $e->getMessage();
 //        }
 
-        $this->teacher->updateOrCreate(['company_id'=>$company_id,'cell'=> $data['cell']], $data);
+        $teacher_info= $this->teacher->updateOrCreate(['cell'=> $data['cell']], $data);
+        $this->companyteacher->updateOrCreate(['company_id'=>$company_id,'teacher_id'=>$teacher_info->id], ['company_id'=>$company_id,'teacher_id'=>$teacher_info->id]);
         return $this->return_json_data(1);
     }
 
     public function Edit(Request $request,$teacher_id){
-        $teacher_info=$this->teacher->findwhere(array("company_id"=>$this->company_id,'id'=>$teacher_id))->first();
+        $teacher_info=$this->teacher->findwhere(array('id'=>$teacher_id))->first();
         if(is_null($teacher_info)){
             //已经存在机构
             return $this->return_json_error_data(-1);
@@ -104,7 +108,7 @@ class TeacherController extends Controller
 
         $company_id =$this->company_id;
 
-        $teacher_info=$this->teacher->findwhere(["company_id"=>$this->company_id,'id'=>$data['teacher_id']])->first();
+        $teacher_info=$this->teacher->findwhere(['id'=>$data['teacher_id']])->first();
         if(is_null($teacher_info)){
             //教师不存在
             return $this->return_json_error_data(-1);
@@ -126,7 +130,7 @@ class TeacherController extends Controller
         try{
             $wechat = app('wechat');
             $qrcode = $wechat->qrcode;
-            $result = $qrcode->temporary("teacher_scan".$teacher_id, 6 * 24 * 3600);
+            $result = $qrcode->temporary("111".$teacher_id, 6 * 24 * 3600);
         } catch (\Exception $ex) {
             return $this->return_json_data(-1);
         }

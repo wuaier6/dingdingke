@@ -27,14 +27,15 @@ class StudentController extends Controller
 
 
     public function index(Request $request){
-        $data['province']=  $this->location->getProvince();
-        return view('console.student.create',$data);
+     //   $data['province']=  $this->location->getProvince();
+        return view('console.student.list');
     }
 
     public function Create(Request $request){
         $data['province']=  $this->location->getProvince();
         return view('console.student.create',$data);
     }
+
 
     public function DoCreate(Request $request){
         $data=$request->all();
@@ -62,6 +63,5 @@ class StudentController extends Controller
         $student_info=$this->student->findwhere(['id'=>$student_id,'company_id'=>$this->company_id])->first();
 
         print_r($student_info);
-
     }
 }

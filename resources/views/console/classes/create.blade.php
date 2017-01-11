@@ -24,7 +24,6 @@
     <div class="box box-default">
         <form action="/teacher/create" method="post" accept-charset="UTF-8"  enctype="multipart/form-data"
               class="form-horizontal" pjax-container="">
-            <input type="hidden" name="company_id" id="company_id" value="{{$company_id}}"/>
             <div class="box-body">
                 <div class="form-group">
                     <label class="col-sm-2 control-label">姓名</label>

@@ -148,6 +148,7 @@
 </section>
 <!-- /.content -->
 </div>
+<div id="container" tabindex="0"></div>
 <!-- /.content-wrapper -->
 @endsection
 
@@ -157,7 +158,14 @@
 
     <script src="/packages/admin/bootstrap-fileinput/js/plugins/canvas-to-blob.min.js"></script>
     <script src="/packages/admin/bootstrap-fileinput/js/fileinput.min.js"></script>
-
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=6ecb8ccb458b3ea4a1133495f39e1c3d"></script>
+    <script type="text/javascript">
+        var map = new AMap.Map('container',{
+            resizeEnable: true,
+            zoom: 10,
+            center: [116.480983, 40.0958]
+        });
+    </script>
     <script>
         $(document).ready(function () {
             $("#tags").select2();

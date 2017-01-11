@@ -29,7 +29,7 @@ class CompanyController extends Controller
     }
 
 
-    protected $user_id = 3;
+    protected $user_id = 4;
 
     /**
      * 机构首页
