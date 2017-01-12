@@ -175,6 +175,31 @@ CREATE TABLE `k_wechat_user` (
   UNIQUE KEY `uk_z_wechat_user_openid` (`openid`,`wx_app_id`)
 ) ENGINE=InnoDB;
 
+DROP TABLE IF EXISTS `k_teacher_wechat_user`;
+CREATE TABLE `k_teacher_wechat_user` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `openid` varchar(32)  NOT NULL COMMENT '用户的标识，对当前公众号唯一',
+  `teacher_id`  int(11) unsigned NOT NULL DEFAULT '0' COMMENT '教师id',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+
+
+DROP TABLE IF EXISTS `k_wechat_lbs`;
+CREATE TABLE `k_wechat_lbs` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `openid` varchar(32)  NOT NULL COMMENT '用户的标识，对当前公众号唯一',
+  `Latitude` double(9,3)  NOT NULL  DEFAULT 0,
+  `Longitude` double(9,3)  NOT NULL DEFAULT 0,
+  `Precision` double(9,3)  NOT NULL DEFAULT 0,
+  `Geohash` varchar(32)  NOT NULL,
+  `create_time` int(11) unsigned NOT NULL COMMENT '记录时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+
+
+
 DROP TABLE IF EXISTS `k_adminuser`;
 CREATE TABLE `k_adminuser` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
